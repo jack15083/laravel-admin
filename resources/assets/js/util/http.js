@@ -3,7 +3,7 @@ export default {
         axios.get(url, params).then(function (res) {
             callback(res.data)
         }).catch(resp => {
-            console.log('请求失败：'+resp.status+','+resp.statusText);
+            console.log('请求失败：' + resp);
         })
     },
 
@@ -11,7 +11,7 @@ export default {
         axios.post(url, params).then(function (res) {
             callback(res.data)
         }).catch(resp => {
-            console.log('请求失败：'+resp.status+','+resp.statusText);
+            console.log('请求失败：' + resp);
         })
     }
 }

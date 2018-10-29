@@ -47536,7 +47536,7 @@ exports = module.exports = __webpack_require__(47)(false);
 
 
 // module
-exports.push([module.i, "\na {\n    text-decoration: none;\n    color: #3c8dbc;\n}\n.main-container {\n    background-color: #222D32;\n    position: fixed;\n    top:50px;\n    left:0;\n    right:0;\n    bottom: 0;\n    overflow-y:auto;\n}\n.el-main, .el-footer {\n    background-color: #fff;\n}\n.el-menu-custom .fa {\n    margin-right: 5px;\n    width: 24px;\n    text-align: center;\n    font-size: 18px;\n    vertical-align: middle;\n}\n.main-header {\n    padding:0;\n}\n.main-header .logo {\n    background-color: #008749;\n    color: #fff;\n    border-bottom: 0 solid transparent;\n}\n.main-header .logo {\n    -webkit-transition: width .3s ease-in-out;\n    transition: width .3s ease-in-out;\n    display: block;\n    float: left;\n    height: 50px;\n    font-size: 20px;\n    line-height: 50px;\n    text-align: center;\n    width: 230px;\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n    padding: 0;\n    font-weight: 300;\n    overflow: hidden;\n    text-decoration: none;\n}\n.main-header .navbar {\n    background-color: #00a65a;\n}\n.main-header .navbar {\n    -webkit-transition: margin-left .3s ease-in-out;\n    transition: margin-left .3s ease-in-out;\n    margin-bottom: 0;\n    margin-left: 230px;\n    border: none;\n    min-height: 50px;\n    border-radius: 0;\n    display: block;\n    position: relative;\n    padding:0;\n    margin-top:0;\n}\n.navbar-static-top {\n    z-index: 1000;\n}\n.el-aside {\n     height: 100%;\n}\n.skin-blue .sidebar-form {\n    border-radius: 3px;\n    border: 1px solid #374850;\n    margin: 10px 10px;\n}\n.input-group {\n    position: relative;\n    display: table;\n    border-collapse: separate;\n}\n.main-header .sidebar-toggle {\n    float: left;\n    background-color: transparent;\n    background-image: none;\n    padding: 15px 15px;\n    font-family: fontAwesome;\n    color:#fff;\n}\n.main-header .sidebar-toggle:before {\n    content: \"\\F0C9\";\n}\n.navbar-custom-menu>.navbar-nav>li {\n    position: relative;\n    float:left;\n}\n.dropdown-toggle {\n    color:#fff;\n    position: relative;\n    display: block;\n    padding: 15px 15px;\n    line-height: 20px;\n}\n.el-dropdown-menu .popper__arrow {\n    display: none;\n}\n.dropdown-menu {\n    padding:0;\n    margin-top:0;\n}\n.dropdown-menu[x-placement^=bottom] {\n    margin-top:0;\n}\n.navbar .user-image {\n    float: left;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    margin-right: 10px;\n    margin-top: -2px;\n}\n.main-footer {\n    background: #fff;\n    padding: 15px;\n    color: #444;\n    border-top: 1px solid #d2d6de;\n    font-size: 14px;\n}\n.user-header {\n    height: 175px;\n    padding: 10px;\n    text-align: center;\n}\n.main-header .el-dropdown:hover {\n    background-color: #009551;\n}\n.user-header>img {\n    z-index: 5;\n    height: 90px;\n    width: 90px;\n    border: 3px solid;\n    border-color: transparent;\n    border-color: rgba(255,255,255,0.2);\n    border-radius: 50%;\n    vertical-align: middle;\n}\n.user-header>p {\n    z-index: 5;\n    font-size: 15px;\n    margin-top: 10px;\n    line-height: 24px;\n}\n.dropdown-menu {\n    margin-right: 5px;\n}\n\n\n", ""]);
+exports.push([module.i, "\na {\n    text-decoration: none;\n    color: #3c8dbc;\n}\n.main-container {\n    background-color: #222D32;\n    position: absolute;\n    top:50px;\n    left:0;\n    right:0;\n    bottom: 0;\n    overflow-y:auto;\n}\n.main-content, .main-footer {\n    background-color: #fff;\n}\n.el-menu-custom .fa {\n    margin-right: 5px;\n    width: 24px;\n    text-align: center;\n    font-size: 18px;\n    vertical-align: middle;\n}\n.main-header {\n    padding:0;\n}\n.main-header .logo {\n    background-color: #008749;\n    color: #fff;\n    border-bottom: 0 solid transparent;\n}\n.main-header .logo {\n    -webkit-transition: width .3s ease-in-out;\n    transition: width .3s ease-in-out;\n    display: block;\n    float: left;\n    height: 50px;\n    font-size: 20px;\n    line-height: 50px;\n    text-align: center;\n    width: 230px;\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n    padding: 0;\n    font-weight: 300;\n    overflow: hidden;\n    text-decoration: none;\n}\n.main-header .navbar {\n    background-color: #00a65a;\n}\n.main-header .navbar {\n    -webkit-transition: margin-left .3s ease-in-out;\n    transition: margin-left .3s ease-in-out;\n    margin-bottom: 0;\n    margin-left: 230px;\n    border: none;\n    min-height: 50px;\n    border-radius: 0;\n    display: block;\n    position: relative;\n    padding:0;\n    margin-top:0;\n}\n.navbar-static-top {\n    z-index: 1000;\n}\n.el-aside {\n     height: 100%;\n}\n.skin-blue .sidebar-form {\n    border-radius: 3px;\n    border: 1px solid #374850;\n    margin: 10px 10px;\n}\n.input-group {\n    position: relative;\n    display: table;\n    border-collapse: separate;\n}\n.main-header .sidebar-toggle {\n    float: left;\n    background-color: transparent;\n    background-image: none;\n    padding: 15px 15px;\n    font-family: fontAwesome;\n    color:#fff;\n}\n.main-header .sidebar-toggle:before {\n    content: \"\\F0C9\";\n}\n.navbar-custom-menu>.navbar-nav>li {\n    position: relative;\n    float:left;\n}\n.dropdown-toggle {\n    color:#fff;\n    position: relative;\n    display: block;\n    padding: 15px 15px;\n    line-height: 20px;\n}\n.el-dropdown-menu .popper__arrow {\n    display: none;\n}\n.dropdown-menu {\n    padding:0;\n    margin-top:0;\n}\n.dropdown-menu[x-placement^=bottom] {\n    margin-top:0;\n}\n.navbar .user-image {\n    float: left;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    margin-right: 10px;\n    margin-top: -2px;\n}\n.main-footer {\n    background: #fff;\n    padding: 15px;\n    color: #444;\n    border-top: 1px solid #d2d6de;\n    font-size: 14px;\n}\n.user-header {\n    height: 175px;\n    padding: 10px;\n    text-align: center;\n}\n.main-header .el-dropdown:hover {\n    background-color: #009551;\n}\n.user-header>img {\n    z-index: 5;\n    height: 90px;\n    width: 90px;\n    border: 3px solid;\n    border-color: transparent;\n    border-color: rgba(255,255,255,0.2);\n    border-radius: 50%;\n    vertical-align: middle;\n}\n.user-header>p {\n    z-index: 5;\n    font-size: 15px;\n    margin-top: 10px;\n    line-height: 24px;\n}\n.dropdown-menu {\n    margin-right: 5px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -47761,7 +47761,7 @@ var render = function() {
                   !_vm.isCollapse
                     ? _c("span", { staticClass: "logo-lg" }, [
                         _c("b", [_vm._v("Laravel")]),
-                        _vm._v("Admin")
+                        _vm._v("-Admin")
                       ])
                     : _vm._e()
                 ]
@@ -48053,6 +48053,7 @@ var render = function() {
                 [
                   _c(
                     "el-main",
+                    { staticClass: "main-content" },
                     [
                       _c(
                         "el-breadcrumb",
@@ -48086,7 +48087,7 @@ var render = function() {
                     _c("strong", [
                       _vm._v("Copyright © 2018 "),
                       _c("a", { attrs: { href: "http://xxx" } }, [
-                        _vm._v("Laravel-admin")
+                        _vm._v("Laravel-Admin")
                       ]),
                       _vm._v(".")
                     ]),
@@ -92043,14 +92044,14 @@ module.exports = function (css) {
         axios.get(url, params).then(function (res) {
             callback(res.data);
         }).catch(function (resp) {
-            console.log('请求失败：' + resp.status + ',' + resp.statusText);
+            console.log('请求失败：' + resp);
         });
     },
     post: function post(url, params, callback) {
         axios.post(url, params).then(function (res) {
             callback(res.data);
         }).catch(function (resp) {
-            console.log('请求失败：' + resp.status + ',' + resp.statusText);
+            console.log('请求失败：' + resp);
         });
     }
 });

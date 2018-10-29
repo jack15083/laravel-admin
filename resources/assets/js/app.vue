@@ -7,7 +7,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini" v-if="isCollapse"><b>LA</b></span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg" v-if="!isCollapse"><b>Laravel</b>Admin</span>
+                    <span class="logo-lg" v-if="!isCollapse"><b>Laravel</b>-Admin</span>
                 </a>
 
                 <!-- Header Navbar: style can be found in header.less -->
@@ -99,16 +99,16 @@
                     </el-menu>
                 </el-aside>
                 <el-container>
-                    <el-main>
+                    <el-main class="main-content">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                             <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
                             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
                             <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-                        </el-breadcrumb> 
+                        </el-breadcrumb>
                         <router-view></router-view>
                     </el-main>
-                    <el-footer class="main-footer"><strong>Copyright © 2018 <a href="http://xxx">Laravel-admin</a>.</strong>  All rights reserved.</el-footer>
+                    <el-footer class="main-footer"><strong>Copyright © 2018 <a href="http://xxx">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
                 </el-container>
             </el-container>
         </el-container>
@@ -152,14 +152,14 @@
 
     .main-container {
         background-color: #222D32;
-        position: fixed;
+        position: absolute;
         top:50px;
         left:0;
         right:0;
         bottom: 0;
         overflow-y:auto;
     }
-    .el-main, .el-footer {
+    .main-content, .main-footer {
         background-color: #fff;
     }
 

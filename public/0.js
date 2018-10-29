@@ -119,8 +119,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         testClick: function testClick() {
+            var that = this;
             this.$http.get('/api/test', {}, function (res) {
-                alert(res.error);
+                that.visible = true;
             });
         }
     }
@@ -147,15 +148,18 @@ var render = function() {
       _c(
         "el-dialog",
         {
-          model: {
-            value: _vm.visible,
-            callback: function($$v) {
-              _vm.visible = $$v
-            },
-            expression: "visible"
+          attrs: {
+            visible: _vm.visible,
+            title: "提示",
+            "close-on-click-modal": false
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.visible = $event
+            }
           }
         },
-        [_c("p", [_vm._v("欢迎使用 Laravel-Admin")])]
+        [_c("p", [_vm._v("欢迎使用 Laravel-Admin.")])]
       )
     ],
     1
