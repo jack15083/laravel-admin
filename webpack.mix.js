@@ -11,5 +11,14 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/assets/js/app.js', 'public/js').extract(['vue'])
    .sass('resources/assets/sass/app.scss', 'public/css');
+
+mix.version();
+
+/*
+if(!mix.config.production) {
+    mix.browserSync({
+        proxy: 'local.admin.com'
+    });
+}*/

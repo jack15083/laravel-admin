@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-container>
-            <el-header style="height: 50px;" class="main-header">
+            <el-header style="height: 50px;padding:0" class="main-header">
                 <!-- Logo -->
                 <a href="index2.html" class="logo" :style="logoStyle">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -14,7 +14,7 @@
                 <nav class="navbar navbar-static-top" :style="navbarStyle">
                     <el-row>
                         <el-col :span="4">
-                            <el-button type="text" class="sidebar-toggle" data-toggle="offcanvas" @click="switchNav">&nbsp;</el-button>
+                            <a type="text" class="sidebar-toggle" data-toggle="offcanvas" @click="switchNav">&nbsp;</a>
                         </el-col>
                         <el-col :span="20" style="float:right">
                             <el-row style="float: right">
@@ -55,10 +55,10 @@
             <el-container class="main-container">
                 <el-aside :width="asideWidth">
                     <el-menu
-                            default-active="2"
+                            default-active="4-3"
                             class="el-menu-custom"
                             :collapse="isCollapse"
-                            background-color="#2C3B41"
+                            :router="true"
                             text-color="#fff"
                             active-text-color="#ffd04b"
                             style="border-right: 0"
@@ -83,10 +83,17 @@
                                 <el-menu-item index="1-4-1">选项1</el-menu-item>
                             </el-submenu>
                         </el-submenu>
-                        <el-menu-item index="4">
-                            <i class="fa fa-gear"></i>
-                            <span slot="title">系统设置</span>
-                        </el-menu-item>
+                        <el-submenu index="4">
+                            <template slot="title">
+                                <i class="fa fa-gear"></i>
+                                <span>系统设置</span>
+                            </template>
+                            <el-menu-item index="4-1" route="/system/group">个人设置</el-menu-item>
+                            <el-menu-item index="4-2" route="/system/group">管理员列表</el-menu-item>
+                            <el-menu-item index="4-3" route="/system/group">管理组列表</el-menu-item>
+                            <el-menu-item index="4-4" route="/hello">权限点列表</el-menu-item>
+                            <el-menu-item index="4-4" route="/hello">操作日志</el-menu-item>
+                        </el-submenu>
                         <el-menu-item index="2">
                             <i class="el-icon-menu"></i>
                             <span slot="title">导航二</span>
@@ -102,13 +109,14 @@
                     <el-main class="main-content">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                            <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-                            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                            <el-breadcrumb-item><a href="/">系统设置</a></el-breadcrumb-item>
+                            <el-breadcrumb-item>管理组列表</el-breadcrumb-item>
+
                         </el-breadcrumb>
+                        <hr style="color:#ccc;"/>
                         <router-view></router-view>
                     </el-main>
-                    <el-footer class="main-footer"><strong>Copyright © 2018 <a href="http://xxx">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
+                    <el-footer class="main-footer" style="padding:15px"><strong>Copyright © 2018 <a href="http://xxx">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
                 </el-container>
             </el-container>
         </el-container>
@@ -145,181 +153,5 @@
 </script>
 
 <style>
-    a {
-        text-decoration: none;
-        color: #3c8dbc;
-    }
-
-    .main-container {
-        background-color: #222D32;
-        position: absolute;
-        top:50px;
-        left:0;
-        right:0;
-        bottom: 0;
-        overflow-y:auto;
-    }
-    .main-content, .main-footer {
-        background-color: #fff;
-    }
-
-    .el-menu-custom .fa {
-        margin-right: 5px;
-        width: 24px;
-        text-align: center;
-        font-size: 18px;
-        vertical-align: middle;
-    }
-    .main-header {
-        padding:0;
-    }
-    .main-header .logo {
-        background-color: #008749;
-        color: #fff;
-        border-bottom: 0 solid transparent;
-    }
-
-    .main-header .logo {
-        -webkit-transition: width .3s ease-in-out;
-        -o-transition: width .3s ease-in-out;
-        transition: width .3s ease-in-out;
-        display: block;
-        float: left;
-        height: 50px;
-        font-size: 20px;
-        line-height: 50px;
-        text-align: center;
-        width: 230px;
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-        padding: 0;
-        font-weight: 300;
-        overflow: hidden;
-        text-decoration: none;
-    }
-
-    .main-header .navbar {
-        background-color: #00a65a;
-    }
-
-    .main-header .navbar {
-        -webkit-transition: margin-left .3s ease-in-out;
-        -o-transition: margin-left .3s ease-in-out;
-        transition: margin-left .3s ease-in-out;
-        margin-bottom: 0;
-        margin-left: 230px;
-        border: none;
-        min-height: 50px;
-        border-radius: 0;
-        display: block;
-        position: relative;
-        padding:0;
-        margin-top:0;
-
-    }
-    .navbar-static-top {
-        z-index: 1000;
-    }
-    .el-aside {
-         height: 100%;
-     }
-
-    .skin-blue .sidebar-form {
-        border-radius: 3px;
-        border: 1px solid #374850;
-        margin: 10px 10px;
-    }
-
-
-    .input-group {
-        position: relative;
-        display: table;
-        border-collapse: separate;
-    }
-
-    .main-header .sidebar-toggle {
-        float: left;
-        background-color: transparent;
-        background-image: none;
-        padding: 15px 15px;
-        font-family: fontAwesome;
-        color:#fff;
-    }
-
-    .main-header .sidebar-toggle:before {
-        content: "\f0c9";
-    }
-
-    .navbar-custom-menu>.navbar-nav>li {
-        position: relative;
-        float:left;
-    }
-    .dropdown-toggle {
-        color:#fff;
-        position: relative;
-        display: block;
-        padding: 15px 15px;
-        line-height: 20px;
-    }
-
-
-    .el-dropdown-menu .popper__arrow {
-        display: none;
-    }
-    .dropdown-menu {
-        padding:0;
-        margin-top:0;
-    }
-    .dropdown-menu[x-placement^=bottom] {
-        margin-top:0;
-    }
-
-    .navbar .user-image {
-        float: left;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        margin-right: 10px;
-        margin-top: -2px;
-    }
-    .main-footer {
-        background: #fff;
-        padding: 15px;
-        color: #444;
-        border-top: 1px solid #d2d6de;
-        font-size: 14px;
-    }
-
-    .user-header {
-        height: 175px;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .main-header .el-dropdown:hover {
-        background-color: #009551;
-    }
-
-    .user-header>img {
-        z-index: 5;
-        height: 90px;
-        width: 90px;
-        border: 3px solid;
-        border-color: transparent;
-        border-color: rgba(255,255,255,0.2);
-        border-radius: 50%;
-        vertical-align: middle;
-    }
-
-    .user-header>p {
-        z-index: 5;
-        font-size: 15px;
-        margin-top: 10px;
-        line-height: 24px;
-    }
-
-    .dropdown-menu {
-        margin-right: 5px;
-    }
-
 
 </style>

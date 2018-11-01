@@ -16,4 +16,14 @@ Route::get('/', function () {
 });
 
 //api
-Route::get('/api/test', 'IndexController@test');
+route::prefix('/api/')->group(function () {
+
+    Route::get('test', 'IndexController@test');
+
+    route::prefix('system/')->namespace('System')->group(function () {
+        Route::get('group/list', 'GroupController@getList');
+    });
+
+});
+
+
