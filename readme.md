@@ -19,8 +19,6 @@ Laravel-Admin 是用 laravel + elementUi前端框架前后端分离写成的后�
 npm run watch 可在开发时运行，实时兼控前端文件修改
 npm run prod 生产环境打包
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
 ## 预览
 
 ![image](https://upload-images.jianshu.io/upload_images/5993750-10dca1d5ea22b61b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
