@@ -22,7 +22,7 @@ npm run prod 生产环境打包
 ## 预览
 
 ![image](https://upload-images.jianshu.io/upload_images/5993750-10dca1d5ea22b61b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
-![image](https://upload-images.jianshu.io/upload_images/5993750-44d0317e735c7288.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image](https://upload-images.jianshu.io/upload_images/5993750-c71295307e5669c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/5993750-eaad028f62d871fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/5993750-4db9f0266aa4ebe2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/5993750-8e790b993d7401fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

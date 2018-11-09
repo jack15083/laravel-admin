@@ -34,9 +34,11 @@ CREATE TABLE `yy_admin_log` (
   PRIMARY KEY (`id`),
   KEY `func` (`func`),
   KEY `admin_id` (`admin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='运营后台操作日志记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='运营后台操作日志记录表';
 
 /*Data for the table `yy_admin_log` */
+
+insert  into `yy_admin_log`(`id`,`admin_id`,`operator`,`ip`,`func`,`url`,`remark`,`details`,`type`,`create_time`) values (1,1,'god','192.168.126.1','/api/system/admin/loglist','/api/system/admin/loglist?page=1&pageSize=20','','{\"page\":\"1\",\"pageSize\":\"20\"}',1,'1541754590.664'),(2,1,'god','192.168.126.1','/api/system/admin/profile/get','/api/system/admin/profile/get','','[]',1,'1541754592.059'),(3,1,'god','192.168.126.1','/api/system/group/list','/api/system/group/list?status=1','','{\"status\":\"1\"}',1,'1541754605.338'),(4,1,'god','192.168.126.1','/api/system/admin/list','/api/system/admin/list?page=1&pageSize=20','','{\"page\":\"1\",\"pageSize\":\"20\"}',1,'1541754605.338'),(5,1,'god','192.168.126.1','/api/system/group/list','/api/system/group/list','','[]',1,'1541754617.218'),(6,1,'god','192.168.126.1','/api/system/rule/list','/api/system/rule/list?status=1','','{\"status\":\"1\"}',1,'1541754617.218'),(7,1,'god','192.168.126.1','/api/system/rule/list','/api/system/rule/list?menu=1&status=1','','{\"menu\":\"1\",\"status\":\"1\"}',1,'1541754644.231'),(8,1,'god','192.168.126.1','/api/system/rule/routes','/api/system/rule/routes','','[]',1,'1541754644.231'),(9,1,'god','192.168.126.1','/api/system/rule/list','/api/system/rule/list','','[]',1,'1541754644.231'),(10,1,'god','192.168.126.1','/api/system/admin/loglist','/api/system/admin/loglist?page=1&pageSize=20','','{\"page\":\"1\",\"pageSize\":\"20\"}',1,'1541754655.501'),(11,1,'god','192.168.126.1','/api/system/group/list','/api/system/group/list','','[]',1,'1541755869.016'),(12,1,'god','192.168.126.1','/api/system/rule/list','/api/system/rule/list?status=1','','{\"status\":\"1\"}',1,'1541755869.016'),(13,1,'god','192.168.126.1','/api/system/admin/list','/api/system/admin/list?page=1&pageSize=20','','{\"page\":\"1\",\"pageSize\":\"20\"}',1,'1541755869.348'),(14,1,'god','192.168.126.1','/api/system/group/list','/api/system/group/list?status=1','','{\"status\":\"1\"}',1,'1541755869.349'),(15,1,'god','192.168.126.1','/api/system/admin/save','/api/system/admin/save','','{\"id\":1,\"username\":\"god\",\"groups\":[1],\"realname\":\"SuperAdmin\",\"mobile\":\"1588899999\",\"email\":\"yxxxx@qq.com\",\"status\":true,\"password\":null}',1,'1541755894.934'),(16,1,'god','192.168.126.1','/api/system/admin/list','/api/system/admin/list?page=1&pageSize=20','','{\"page\":\"1\",\"pageSize\":\"20\"}',1,'1541755895.033');
 
 /*Table structure for table `yy_auth_admin` */
 
@@ -63,7 +65,7 @@ CREATE TABLE `yy_auth_admin` (
 
 /*Data for the table `yy_auth_admin` */
 
-insert  into `yy_auth_admin`(`id`,`username`,`password`,`realname`,`avatar`,`mobile`,`email`,`dingtalk_id`,`dingtalk_globalid`,`last_login`,`last_ip`,`try_time`,`status`,`create_time`) values (1,'god','$2y$12$wNn2NqR0kIXdG4H0/WJrf.NfS8csPHGC1xUGO0KDTYe.zKlqkbxMy','SuperAdmin','/storage/avatars/ZREEU7nrxhmCNsI4VTuOTlbWwh6479pWHz7aW0to.jpeg','15888030318','yuyuefeng@kaike.la','3527594120810015','','1541753128.147','192.168.126.1',0,1,'0.000'),(2,'test','$2y$12$23bjKmox2SuRsEQQxp4YcOGx.3nHo6vEvX2yjBYTNs84buy8.I42O','测试号','/storage/avatars/xL35yynYjcCmQdhGDqjqwEnwPGFASjGCp35RNbBE.jpeg',NULL,NULL,'','','1541751851.787','192.168.126.1',0,1,'1541734248.958');
+insert  into `yy_auth_admin`(`id`,`username`,`password`,`realname`,`avatar`,`mobile`,`email`,`dingtalk_id`,`dingtalk_globalid`,`last_login`,`last_ip`,`try_time`,`status`,`create_time`) values (1,'god','$2y$12$wNn2NqR0kIXdG4H0/WJrf.NfS8csPHGC1xUGO0KDTYe.zKlqkbxMy','SuperAdmin','/storage/avatars/ZREEU7nrxhmCNsI4VTuOTlbWwh6479pWHz7aW0to.jpeg','1588899999','yxxxx@qq.com','3527594120810015','','1541754590.100','192.168.126.1',0,1,'0.000'),(2,'test','$2y$12$23bjKmox2SuRsEQQxp4YcOGx.3nHo6vEvX2yjBYTNs84buy8.I42O','测试号','/storage/avatars/xL35yynYjcCmQdhGDqjqwEnwPGFASjGCp35RNbBE.jpeg',NULL,NULL,'','','1541751851.787','192.168.126.1',0,1,'1541734248.958');
 
 /*Table structure for table `yy_auth_group` */
 
