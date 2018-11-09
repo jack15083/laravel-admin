@@ -27,6 +27,8 @@ a {
 
 .main-header {
   padding: 0;
+  background-color: #008749;
+  width: 100%;
 }
 
 .main-header .logo {

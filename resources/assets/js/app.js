@@ -23,6 +23,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import http from './util/http.js' // http fetch function
 
 const __Prototype = Vue.prototype;
+
 __Prototype.$http = http;
 
 Vue.use(ElementUI);

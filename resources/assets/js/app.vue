@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-container>
+        <el-container v-if="isLogin">
             <el-header style="height: 50px;padding:0" class="main-header">
                 <!-- Logo -->
                 <a href="index2.html" class="logo" :style="logoStyle">
@@ -21,25 +21,28 @@
                                 <!-- Navbar Right Menu -->
                                 <el-dropdown trigger="click" class="user-info-menu" >
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                                        <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                        <span class="hidden-xs">Super-Admin</span>
+                                        <img :src="userInfo.avatar || '/img/avatar.jpg'" class="user-image" alt="User Image">
+                                        <span class="hidden-xs">{{userInfo.username}}</span>
                                     </a>
                                     <el-dropdown-menu slot="dropdown" class="dropdown-menu">
                                         <el-dropdown-item class="user-header" >
-                                            <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            <img :src="userInfo.avatar || '/img/avatar.jpg'" class="img-circle" alt="User Image">
 
                                             <p>
-                                                Super-Admin - 高级管理员<br/>
-                                                <small>Member since Nov. 2018</small>
+                                                {{userInfo.username}} - {{userInfo.realname}}<br/>
+                                                <small>Member since {{toDate(userInfo.create_time)}}</small>
                                             </p>
                                         </el-dropdown-item>
 
                                         <el-dropdown-item class="user-footer" :divided="true">
                                             <div class="pull-left">
-                                                <el-button type="text">设置</el-button>
+                                                <router-link :to="'/system/profile'" >
+                                                    <el-button type="text" @click="">设置</el-button>
+                                                </router-link>
+
                                             </div>
                                             <div class="pull-right">
-                                                <el-button type="text">退出</el-button>
+                                                <el-button type="text" @click="logout">退出</el-button>
                                             </div>
                                         </el-dropdown-item>
 
@@ -55,7 +58,7 @@
             <el-container class="main-container">
                 <el-aside :width="asideWidth">
                     <el-menu
-                            default-active="4-3"
+                            :default-active="active"
                             class="el-menu-custom"
                             :collapse="isCollapse"
                             :router="true"
@@ -64,45 +67,13 @@
                             style="border-right: 0"
                     >
 
-                        <el-submenu index="1">
+                        <el-submenu :index="menu.id + ''" v-for="menu in menus" :key="menu.id">
                             <template slot="title">
-                                <i class="fa fa-dashboard"></i>
-                                <span>Dashboard</span>
+                                <span v-html="menu.icon"></span>
+                                <span>{{menu.label}}</span>
                             </template>
-
-                            <el-menu-item-group>
-                                <template slot="title">分组一</template>
-                                <el-menu-item index="1-1">选项1</el-menu-item>
-                                <el-menu-item index="1-2">选项2</el-menu-item>
-                            </el-menu-item-group>
-                            <el-menu-item-group title="分组2">
-                                <el-menu-item index="1-3">选项3</el-menu-item>
-                            </el-menu-item-group>
-                            <el-submenu index="1-4">
-                                <template slot="title">选项4</template>
-                                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                            </el-submenu>
+                            <el-menu-item :index="menu.id + '-' + child.id" :route="child.path" v-for="child in menu.children" :key="child.id">{{child.label}}</el-menu-item>
                         </el-submenu>
-                        <el-submenu index="4">
-                            <template slot="title">
-                                <i class="fa fa-gear"></i>
-                                <span>系统设置</span>
-                            </template>
-                            <el-menu-item index="4-1" route="/system/group">个人设置</el-menu-item>
-                            <el-menu-item index="4-2" route="/system/group">管理员列表</el-menu-item>
-                            <el-menu-item index="4-3" route="/system/group">管理组列表</el-menu-item>
-                            <el-menu-item index="4-4" route="/hello">权限点列表</el-menu-item>
-                            <el-menu-item index="4-4" route="/hello">操作日志</el-menu-item>
-                        </el-submenu>
-                        <el-menu-item index="2">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">导航二</span>
-                        </el-menu-item>
-                        <el-menu-item index="3" disabled>
-                            <i class="el-icon-document"></i>
-                            <span slot="title">导航三</span>
-                        </el-menu-item>
-
                     </el-menu>
                 </el-aside>
                 <el-container>
@@ -121,18 +92,73 @@
             </el-container>
         </el-container>
 
+        <!-- 登录 --->
+        <el-container v-if="!isLogin" class="login-panel">
+            <el-row class="login-form">
+                <el-alert
+                        :title="error"
+                        type="error" v-if="error">
+                </el-alert>
+                <el-form label-position="top" label-width="80px" :model="form" ref="form" :rules="ruleForm" >
+                    <el-form-item label="用户名" prop="username">
+                        <el-input v-model="form.username" autocomplete="on" name="username"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input type="password" v-model="form.password" autocomplete="on" name="password"></el-input>
+                    </el-form-item>
+
+                    <el-form-item >
+                        <el-button type="primary" @click="login('form')" size="samll">登录</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-row>
+        </el-container>
     </div>
 </template>
 
 <script>
     export default {
         name: 'app',
+        mounted() {
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
+            this.isLogin = this.userInfo !== null;
+
+            //定位默认菜单
+            if(this.isLogin) {
+                this.menus = this.userInfo.menus;
+
+                for(let i in this.menus) {
+                    let item = this.menus[i];
+                    for(let j in item.children) {
+                        let child = item.children[j];
+                        let currentPath = '#' + child.path;
+                        if(currentPath === location.hash) {
+                            this.active = item.id + '-' + child.id;
+                        }
+                    }
+                }
+            }
+        },
         data() {
             return {
                 isCollapse:false,
                 asideWidth:'230px',
                 logoStyle:'',
                 navbarStyle:'',
+                isLogin:false,
+                form:{},
+                ruleForm:{
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
+                    ],
+                },
+                userInfo:{},
+                error:'',
+                menus:[],
+                active:''
             }
         },
         methods: {
@@ -148,10 +174,52 @@
                     this.navbarStyle = 'margin-left:230px;'
                 }
             },
+            login(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$http.post('/api/login', this.form).then(res => {
+                            if(res.error === 0) {
+                                window.sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+                                location.reload();
+                            } else {
+                                this.error = res.msg;
+                            }
+                        });
+                    }
+                });
+            },
+            toDate(times){
+                let date = new Date(times * 1000);
+                let Y = date.getFullYear() + '/';
+                let M = (date.getMonth() + 1 < 10 ? '0'+(date.getMonth() + 1) : date.getMonth() + 1) + '/';
+                let D = date.getDate() + ' ';
+                return Y + M + D;
+            },
+
+            logout() {
+                this.$http.post('/api/logout', this.form).then(res => {
+                    if(res.error === 0) {
+                        window.sessionStorage.removeItem('userInfo');
+                        location.reload();
+                    } else {
+                        this.error = res.msg;
+                    }
+                });
+            }
         }
     }
 </script>
 
 <style>
-
+    body {
+        background-color: #F1F1F1;
+    }
+    .login-form {
+        background-color: #FFF;
+        width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+        margin-top: 100px;
+    }
 </style>

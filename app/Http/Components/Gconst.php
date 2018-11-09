@@ -10,5 +10,5 @@ namespace App\Components;
 
 class Gconst
 {
-
+    const TEST = 'test';
 }

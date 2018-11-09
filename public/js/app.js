@@ -1,4 +1,4 @@
-webpackJsonp([1],{
+webpackJsonp([6],{
 
 /***/ "./node_modules/async-validator/es/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3189,23 +3189,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'app',
+    mounted: function mounted() {
+        this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
+        this.isLogin = this.userInfo !== null;
+
+        //定位默认菜单
+        if (this.isLogin) {
+            this.menus = this.userInfo.menus;
+
+            for (var i in this.menus) {
+                var item = this.menus[i];
+                for (var j in item.children) {
+                    var child = item.children[j];
+                    var currentPath = '#' + child.path;
+                    if (currentPath === location.hash) {
+                        this.active = item.id + '-' + child.id;
+                    }
+                }
+            }
+        }
+    },
     data: function data() {
         return {
             isCollapse: false,
             asideWidth: '230px',
             logoStyle: '',
-            navbarStyle: ''
+            navbarStyle: '',
+            isLogin: false,
+            form: {},
+            ruleForm: {
+                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+            },
+            userInfo: {},
+            error: '',
+            menus: [],
+            active: ''
         };
     },
 
@@ -3221,6 +3243,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.logoStyle = 'width:230px';
                 this.navbarStyle = 'margin-left:230px;';
             }
+        },
+        login: function login(formName) {
+            var _this = this;
+
+            this.$refs[formName].validate(function (valid) {
+                if (valid) {
+                    _this.$http.post('/api/login', _this.form).then(function (res) {
+                        if (res.error === 0) {
+                            window.sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+                            location.reload();
+                        } else {
+                            _this.error = res.msg;
+                        }
+                    });
+                }
+            });
+        },
+        toDate: function toDate(times) {
+            var date = new Date(times * 1000);
+            var Y = date.getFullYear() + '/';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
+            var D = date.getDate() + ' ';
+            return Y + M + D;
+        },
+        logout: function logout() {
+            var _this2 = this;
+
+            this.$http.post('/api/logout', this.form).then(function (res) {
+                if (res.error === 0) {
+                    window.sessionStorage.removeItem('userInfo');
+                    location.reload();
+                } else {
+                    _this2.error = res.msg;
+                }
+            });
         }
     }
 });
@@ -7153,7 +7210,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\nbody {\n    background-color: #F1F1F1;\n}\n.login-form {\n    background-color: #FFF;\n    width: 350px;\n    margin-left: auto;\n    margin-right: auto;\n    padding: 30px;\n    margin-top: 100px;\n}\n", ""]);
 
 // exports
 
@@ -79769,169 +79826,224 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "el-container",
-        [
-          _c(
-            "el-header",
-            {
-              staticClass: "main-header",
-              staticStyle: { height: "50px", padding: "0" }
-            },
+      _vm.isLogin
+        ? _c(
+            "el-container",
             [
               _c(
-                "a",
+                "el-header",
                 {
-                  staticClass: "logo",
-                  style: _vm.logoStyle,
-                  attrs: { href: "index2.html" }
-                },
-                [
-                  _vm.isCollapse
-                    ? _c("span", { staticClass: "logo-mini" }, [
-                        _c("b", [_vm._v("LA")])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.isCollapse
-                    ? _c("span", { staticClass: "logo-lg" }, [
-                        _c("b", [_vm._v("Laravel")]),
-                        _vm._v("-Admin")
-                      ])
-                    : _vm._e()
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "nav",
-                {
-                  staticClass: "navbar navbar-static-top",
-                  style: _vm.navbarStyle
+                  staticClass: "main-header",
+                  staticStyle: { height: "50px", padding: "0" }
                 },
                 [
                   _c(
-                    "el-row",
+                    "a",
+                    {
+                      staticClass: "logo",
+                      style: _vm.logoStyle,
+                      attrs: { href: "index2.html" }
+                    },
                     [
-                      _c("el-col", { attrs: { span: 4 } }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "sidebar-toggle",
-                            attrs: { type: "text", "data-toggle": "offcanvas" },
-                            on: { click: _vm.switchNav }
-                          },
-                          [_vm._v(" ")]
-                        )
-                      ]),
+                      _vm.isCollapse
+                        ? _c("span", { staticClass: "logo-mini" }, [
+                            _c("b", [_vm._v("LA")])
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
+                      !_vm.isCollapse
+                        ? _c("span", { staticClass: "logo-lg" }, [
+                            _c("b", [_vm._v("Laravel")]),
+                            _vm._v("-Admin")
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "nav",
+                    {
+                      staticClass: "navbar navbar-static-top",
+                      style: _vm.navbarStyle
+                    },
+                    [
                       _c(
-                        "el-col",
-                        {
-                          staticStyle: { float: "right" },
-                          attrs: { span: 20 }
-                        },
+                        "el-row",
                         [
+                          _c("el-col", { attrs: { span: 4 } }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "sidebar-toggle",
+                                attrs: {
+                                  type: "text",
+                                  "data-toggle": "offcanvas"
+                                },
+                                on: { click: _vm.switchNav }
+                              },
+                              [_vm._v(" ")]
+                            )
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "el-row",
-                            { staticStyle: { float: "right" } },
+                            "el-col",
+                            {
+                              staticStyle: { float: "right" },
+                              attrs: { span: 20 }
+                            },
                             [
                               _c(
-                                "el-dropdown",
-                                {
-                                  staticClass: "user-info-menu",
-                                  attrs: { trigger: "click" }
-                                },
+                                "el-row",
+                                { staticStyle: { float: "right" } },
                                 [
                                   _c(
-                                    "a",
+                                    "el-dropdown",
                                     {
-                                      staticClass: "dropdown-toggle",
-                                      attrs: {
-                                        href: "#",
-                                        "data-toggle": "dropdown"
-                                      }
-                                    },
-                                    [
-                                      _c("img", {
-                                        staticClass: "user-image",
-                                        attrs: {
-                                          src: "/img/user2-160x160.jpg",
-                                          alt: "User Image"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "hidden-xs" }, [
-                                        _vm._v("Super-Admin")
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "el-dropdown-menu",
-                                    {
-                                      staticClass: "dropdown-menu",
-                                      attrs: { slot: "dropdown" },
-                                      slot: "dropdown"
+                                      staticClass: "user-info-menu",
+                                      attrs: { trigger: "click" }
                                     },
                                     [
                                       _c(
-                                        "el-dropdown-item",
-                                        { staticClass: "user-header" },
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-toggle",
+                                          attrs: {
+                                            href: "#",
+                                            "data-toggle": "dropdown"
+                                          }
+                                        },
                                         [
                                           _c("img", {
-                                            staticClass: "img-circle",
+                                            staticClass: "user-image",
                                             attrs: {
-                                              src: "/img/user2-160x160.jpg",
+                                              src:
+                                                _vm.userInfo.avatar ||
+                                                "/img/avatar.jpg",
                                               alt: "User Image"
                                             }
                                           }),
                                           _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              "\n                                            Super-Admin - 高级管理员"
-                                            ),
-                                            _c("br"),
-                                            _vm._v(" "),
-                                            _c("small", [
-                                              _vm._v("Member since Nov. 2018")
-                                            ])
-                                          ])
+                                          _c(
+                                            "span",
+                                            { staticClass: "hidden-xs" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(_vm.userInfo.username)
+                                              )
+                                            ]
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
                                       _c(
-                                        "el-dropdown-item",
+                                        "el-dropdown-menu",
                                         {
-                                          staticClass: "user-footer",
-                                          attrs: { divided: true }
+                                          staticClass: "dropdown-menu",
+                                          attrs: { slot: "dropdown" },
+                                          slot: "dropdown"
                                         },
                                         [
                                           _c(
-                                            "div",
-                                            { staticClass: "pull-left" },
+                                            "el-dropdown-item",
+                                            { staticClass: "user-header" },
                                             [
-                                              _c(
-                                                "el-button",
-                                                { attrs: { type: "text" } },
-                                                [_vm._v("设置")]
-                                              )
-                                            ],
-                                            1
+                                              _c("img", {
+                                                staticClass: "img-circle",
+                                                attrs: {
+                                                  src:
+                                                    _vm.userInfo.avatar ||
+                                                    "/img/avatar.jpg",
+                                                  alt: "User Image"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.userInfo.username
+                                                    ) +
+                                                    " - " +
+                                                    _vm._s(
+                                                      _vm.userInfo.realname
+                                                    )
+                                                ),
+                                                _c("br"),
+                                                _vm._v(" "),
+                                                _c("small", [
+                                                  _vm._v(
+                                                    "Member since " +
+                                                      _vm._s(
+                                                        _vm.toDate(
+                                                          _vm.userInfo
+                                                            .create_time
+                                                        )
+                                                      )
+                                                  )
+                                                ])
+                                              ])
+                                            ]
                                           ),
                                           _vm._v(" "),
                                           _c(
-                                            "div",
-                                            { staticClass: "pull-right" },
+                                            "el-dropdown-item",
+                                            {
+                                              staticClass: "user-footer",
+                                              attrs: { divided: true }
+                                            },
                                             [
                                               _c(
-                                                "el-button",
-                                                { attrs: { type: "text" } },
-                                                [_vm._v("退出")]
+                                                "div",
+                                                { staticClass: "pull-left" },
+                                                [
+                                                  _c(
+                                                    "router-link",
+                                                    {
+                                                      attrs: {
+                                                        to: "/system/profile"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "el-button",
+                                                        {
+                                                          attrs: {
+                                                            type: "text"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {}
+                                                          }
+                                                        },
+                                                        [_vm._v("设置")]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "pull-right" },
+                                                [
+                                                  _c(
+                                                    "el-button",
+                                                    {
+                                                      attrs: { type: "text" },
+                                                      on: { click: _vm.logout }
+                                                    },
+                                                    [_vm._v("退出")]
+                                                  )
+                                                ],
+                                                1
                                               )
-                                            ],
-                                            1
+                                            ]
                                           )
-                                        ]
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
@@ -79948,157 +80060,115 @@ var render = function() {
                     ],
                     1
                   )
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "el-container",
-            { staticClass: "main-container" },
-            [
+                ]
+              ),
+              _vm._v(" "),
               _c(
-                "el-aside",
-                { attrs: { width: _vm.asideWidth } },
+                "el-container",
+                { staticClass: "main-container" },
                 [
                   _c(
-                    "el-menu",
-                    {
-                      staticClass: "el-menu-custom",
-                      staticStyle: { "border-right": "0" },
-                      attrs: {
-                        "default-active": "4-3",
-                        collapse: _vm.isCollapse,
-                        router: true,
-                        "text-color": "#fff",
-                        "active-text-color": "#ffd04b"
-                      }
-                    },
+                    "el-aside",
+                    { attrs: { width: _vm.asideWidth } },
                     [
                       _c(
-                        "el-submenu",
-                        { attrs: { index: "1" } },
-                        [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fa fa-dashboard" }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v("Dashboard")])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item-group",
+                        "el-menu",
+                        {
+                          staticClass: "el-menu-custom",
+                          staticStyle: { "border-right": "0" },
+                          attrs: {
+                            "default-active": _vm.active,
+                            collapse: _vm.isCollapse,
+                            router: true,
+                            "text-color": "#fff",
+                            "active-text-color": "#ffd04b"
+                          }
+                        },
+                        _vm._l(_vm.menus, function(menu) {
+                          return _c(
+                            "el-submenu",
+                            { key: menu.id, attrs: { index: menu.id + "" } },
                             [
                               _c("template", { slot: "title" }, [
-                                _vm._v("分组一")
+                                _c("span", {
+                                  domProps: { innerHTML: _vm._s(menu.icon) }
+                                }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v(_vm._s(menu.label))])
                               ]),
                               _vm._v(" "),
-                              _c("el-menu-item", { attrs: { index: "1-1" } }, [
-                                _vm._v("选项1")
-                              ]),
-                              _vm._v(" "),
-                              _c("el-menu-item", { attrs: { index: "1-2" } }, [
-                                _vm._v("选项2")
-                              ])
+                              _vm._l(menu.children, function(child) {
+                                return _c(
+                                  "el-menu-item",
+                                  {
+                                    key: child.id,
+                                    attrs: {
+                                      index: menu.id + "-" + child.id,
+                                      route: child.path
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(child.label))]
+                                )
+                              })
                             ],
                             2
-                          ),
-                          _vm._v(" "),
+                          )
+                        })
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-container",
+                    [
+                      _c(
+                        "el-main",
+                        { staticClass: "main-content" },
+                        [
                           _c(
-                            "el-menu-item-group",
-                            { attrs: { title: "分组2" } },
+                            "el-breadcrumb",
+                            { attrs: { separator: "/" } },
                             [
-                              _c("el-menu-item", { attrs: { index: "1-3" } }, [
-                                _vm._v("选项3")
-                              ])
+                              _c(
+                                "el-breadcrumb-item",
+                                { attrs: { to: { path: "/" } } },
+                                [_vm._v("首页")]
+                              ),
+                              _vm._v(" "),
+                              _c("el-breadcrumb-item", [
+                                _c("a", { attrs: { href: "/" } }, [
+                                  _vm._v("系统设置")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("el-breadcrumb-item", [_vm._v("管理组列表")])
                             ],
                             1
                           ),
                           _vm._v(" "),
-                          _c(
-                            "el-submenu",
-                            { attrs: { index: "1-4" } },
-                            [
-                              _c("template", { slot: "title" }, [
-                                _vm._v("选项4")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "el-menu-item",
-                                { attrs: { index: "1-4-1" } },
-                                [_vm._v("选项1")]
-                              )
-                            ],
-                            2
-                          )
+                          _c("hr", { staticStyle: { color: "#ccc" } }),
+                          _vm._v(" "),
+                          _c("router-view")
                         ],
-                        2
+                        1
                       ),
                       _vm._v(" "),
                       _c(
-                        "el-submenu",
-                        { attrs: { index: "4" } },
+                        "el-footer",
+                        {
+                          staticClass: "main-footer",
+                          staticStyle: { padding: "15px" }
+                        },
                         [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fa fa-gear" }),
-                            _vm._v(" "),
-                            _c("span", [_vm._v("系统设置")])
+                          _c("strong", [
+                            _vm._v("Copyright © 2018 "),
+                            _c("a", { attrs: { href: "http://xxx" } }, [
+                              _vm._v("Laravel-Admin")
+                            ]),
+                            _vm._v(".")
                           ]),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "4-1", route: "/system/group" } },
-                            [_vm._v("个人设置")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "4-2", route: "/system/group" } },
-                            [_vm._v("管理员列表")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "4-3", route: "/system/group" } },
-                            [_vm._v("管理组列表")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "4-4", route: "/hello" } },
-                            [_vm._v("权限点列表")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "4-4", route: "/hello" } },
-                            [_vm._v("操作日志")]
-                          )
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "2" } }, [
-                        _c("i", { staticClass: "el-icon-menu" }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          { attrs: { slot: "title" }, slot: "title" },
-                          [_vm._v("导航二")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "el-menu-item",
-                        { attrs: { index: "3", disabled: "" } },
-                        [
-                          _c("i", { staticClass: "el-icon-document" }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            { attrs: { slot: "title" }, slot: "title" },
-                            [_vm._v("导航三")]
-                          )
+                          _vm._v("  All rights reserved.")
                         ]
                       )
                     ],
@@ -80106,59 +80176,99 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.isLogin
+        ? _c(
+            "el-container",
+            { staticClass: "login-panel" },
+            [
               _c(
-                "el-container",
+                "el-row",
+                { staticClass: "login-form" },
                 [
+                  _vm.error
+                    ? _c("el-alert", {
+                        attrs: { title: _vm.error, type: "error" }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
-                    "el-main",
-                    { staticClass: "main-content" },
+                    "el-form",
+                    {
+                      ref: "form",
+                      attrs: {
+                        "label-position": "top",
+                        "label-width": "80px",
+                        model: _vm.form,
+                        rules: _vm.ruleForm
+                      }
+                    },
                     [
                       _c(
-                        "el-breadcrumb",
-                        { attrs: { separator: "/" } },
+                        "el-form-item",
+                        { attrs: { label: "用户名", prop: "username" } },
                         [
-                          _c(
-                            "el-breadcrumb-item",
-                            { attrs: { to: { path: "/" } } },
-                            [_vm._v("首页")]
-                          ),
-                          _vm._v(" "),
-                          _c("el-breadcrumb-item", [
-                            _c("a", { attrs: { href: "/" } }, [
-                              _vm._v("系统设置")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("el-breadcrumb-item", [_vm._v("管理组列表")])
+                          _c("el-input", {
+                            attrs: { autocomplete: "on", name: "username" },
+                            model: {
+                              value: _vm.form.username,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "username", $$v)
+                              },
+                              expression: "form.username"
+                            }
+                          })
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("hr", { staticStyle: { color: "#ccc" } }),
+                      _c(
+                        "el-form-item",
+                        { attrs: { label: "密码", prop: "password" } },
+                        [
+                          _c("el-input", {
+                            attrs: {
+                              type: "password",
+                              autocomplete: "on",
+                              name: "password"
+                            },
+                            model: {
+                              value: _vm.form.password,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "password", $$v)
+                              },
+                              expression: "form.password"
+                            }
+                          })
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("router-view")
+                      _c(
+                        "el-form-item",
+                        [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { type: "primary", size: "samll" },
+                              on: {
+                                click: function($event) {
+                                  _vm.login("form")
+                                }
+                              }
+                            },
+                            [_vm._v("登录")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-footer",
-                    {
-                      staticClass: "main-footer",
-                      staticStyle: { padding: "15px" }
-                    },
-                    [
-                      _c("strong", [
-                        _vm._v("Copyright © 2018 "),
-                        _c("a", { attrs: { href: "http://xxx" } }, [
-                          _vm._v("Laravel-Admin")
-                        ]),
-                        _vm._v(".")
-                      ]),
-                      _vm._v("  All rights reserved.")
-                    ]
                   )
                 ],
                 1
@@ -80166,9 +80276,7 @@ var render = function() {
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -83225,6 +83333,7 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
  // http fetch function
 
 var __Prototype = Vue.prototype;
+
 __Prototype.$http = __WEBPACK_IMPORTED_MODULE_3__util_http_js__["a" /* default */];
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_element_ui___default.a);
@@ -83321,7 +83430,7 @@ var vueRoutes = {
         name: 'hello',
         path: '/hello',
         component: function component(resolve) {
-            return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/Hello.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+            return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/Hello.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }
     }]
 };
@@ -83338,10 +83447,34 @@ vueRoutes.routes = vueRoutes.routes.concat(__WEBPACK_IMPORTED_MODULE_2__router_s
 "use strict";
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    name: 'grouplist',
+    name: 'group',
     path: '/system/group',
     component: function component(resolve) {
         return void __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/system/group.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+}, {
+    name: 'rule',
+    path: '/system/rule',
+    component: function component(resolve) {
+        return void __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/system/rule.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+}, {
+    name: 'admin',
+    path: '/system/admin',
+    component: function component(resolve) {
+        return void __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/system/admin.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+}, {
+    name: 'profile',
+    path: '/system/profile',
+    component: function component(resolve) {
+        return void __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/system/profile.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    }
+}, {
+    name: 'logslist',
+    path: '/system/logs',
+    component: function component(resolve) {
+        return void __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/views/system/logs.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
     }
 }]);
 
@@ -83352,18 +83485,34 @@ vueRoutes.routes = vueRoutes.routes.concat(__WEBPACK_IMPORTED_MODULE_2__router_s
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    get: function get(url, params, callback) {
-        axios.get(url, { params: params }).then(function (res) {
-            callback(res.data);
-        }).catch(function (resp) {
-            console.log('请求失败：' + resp);
+    get: function get(url, params) {
+        return new Promise(function (resolve, reject) {
+            axios.get(url, { params: params }).then(function (res) {
+                //未登录
+                if (res.data.error === 4) {
+                    window.sessionStorage.removeItem('userInfo');
+                    location.reload();
+                }
+                resolve(res.data);
+            }).catch(function (resp) {
+                reject(resp);
+                console.log('请求失败：' + resp);
+            });
         });
     },
-    post: function post(url, params, callback) {
-        axios.post(url, params).then(function (res) {
-            callback(res.data);
-        }).catch(function (resp) {
-            console.log('请求失败：' + resp);
+    post: function post(url, params) {
+        return new Promise(function (resolve, reject) {
+            axios.post(url, params).then(function (res) {
+                //未登录
+                if (res.data.error === 4) {
+                    window.sessionStorage.removeItem('userInfo');
+                    location.reload();
+                }
+                resolve(res.data);
+            }).catch(function (resp) {
+                reject(resp);
+                console.log('请求失败：' + resp);
+            });
         });
     }
 });

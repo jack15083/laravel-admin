@@ -17,9 +17,9 @@
         },
         methods: {
             testClick() {
-                var that = this;
-                this.$http.get('/api/test', {}, function (res) {
-                    that.visible = true;
+                this.$http.get('/api/test', {}).then(res => {
+                    console.log(res);
+                    this.visible = true;
                 });
             }
         }
