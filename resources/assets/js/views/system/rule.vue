@@ -184,6 +184,7 @@
             getRulesTree() {
                 this.$http.get('/api/system/rule/list',{}).then(res => {
                     this.rulesTree = res.data.list;
+                    this.auth = res.data.auth;
                 });
             },
             resetFields() {

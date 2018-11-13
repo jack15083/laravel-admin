@@ -9,6 +9,7 @@
 namespace App\Http\Middleware;
 
 use App\Components\Code;
+use App\Components\Common;
 use App\Http\Controllers\Controller;
 use App\SystemLogs;
 use Closure;
@@ -25,9 +26,15 @@ class CheckRoutePermission
     public function handle($request, Closure $next)
     {
         $loginInfo = session('loginInfo');
+        $base = new Controller($request);
         if(empty($loginInfo)) {
-            $base = new Controller($request);
             return $base->sendError(Code::UN_LOGIN);
+        }
+
+        //检查权限
+        if(!Common::checkPermission($request->getPathInfo())) {
+            return $base->sendError(Code::NO_PERMISSION, sprintf(Code::getError(Code::NO_PERMISSION),
+                $request->getPathInfo()));
         }
 
         $this->saveSystemLogs($request);

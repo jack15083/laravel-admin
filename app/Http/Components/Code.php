@@ -17,6 +17,7 @@ class Code
     const DATABASE_ERROR = 3;
     const UN_LOGIN = 4;
     const LOGIN_ERROR = 5;
+    const NO_PERMISSION = 6;
 
     const GROUP_EXIST = 1001;
     const RULE_EXIST = 1002;
@@ -36,7 +37,8 @@ class Code
         self::ADMIN_EXIST => '用户名已存在！',
         self::OLD_PASSWORD_WRONG => '原密码错误',
         self::LOGIN_ERROR => '用户名或密码错误！',
-        self::LOGIN_TRY_ERROR => '输错密码次数太多，请一小时后再试！'
+        self::LOGIN_TRY_ERROR => '输错密码次数太多，请一小时后再试！',
+        self::NO_PERMISSION => '没有%s的接口权限，请联系管理员！'
     ];
 
     public static function getError($code)

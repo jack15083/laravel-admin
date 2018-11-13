@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Storage;
 
 class Common
 {
+    /**
+     * 上传图片到本地服务器
+     * @param Request $request
+     * @param $key
+     * @return array
+     */
     public static function uploadImgToLocalStorage(Request $request, $key)
     {
         $res  = ['error' => 1, 'msg' => ''];
@@ -44,11 +50,22 @@ class Common
         return $res;
     }
 
+    /**
+     * 密码加密
+     * @param $password
+     * @return bool|mixed|string
+     */
     public static function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
     }
 
+    /**
+     * 生成菜单树
+     * @param $list
+     * @param $pid
+     * @return array
+     */
     public static function generateRuleTree($list, $pid)
     {
         $tree = [];
@@ -72,5 +89,35 @@ class Common
         }
 
         return $tree;
+    }
+
+    /**
+     * 检查路由权限
+     * @param $path
+     * @param $isPreg
+     * @return bool
+     */
+    public static function checkPermission($path, $isPreg = false)
+    {
+        $loginInfo = session('loginInfo');
+        $rules = $loginInfo['rules'] ?? [];
+
+        if(empty($rules)) {
+            return false;
+        }
+
+        if(!$isPreg) $path = preg_replace('/(^\/)|(\/$)/', '', $path);
+
+        foreach ($rules as $value) {
+            if(!$isPreg && $path === $value) {
+                return true;
+            }
+
+            if($isPreg && preg_match($path, $value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

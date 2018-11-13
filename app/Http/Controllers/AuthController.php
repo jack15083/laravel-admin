@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\Common;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -29,17 +30,32 @@ class AuthController extends Controller
 
     public function canAdd()
     {
-        return true;
+        $path = dirname($this->request->getPathInfo()) . '/save';
+        if(Common::checkPermission($path)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function canEdit()
     {
-        return true;
+        $path = dirname($this->request->getPathInfo()) . '/save';
+        if(Common::checkPermission($path)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function canDelete()
     {
-        return true;
+        $path = dirname($this->request->getPathInfo()) . '/delete';
+        if(Common::checkPermission($path)) {
+            return true;
+        }
+
+        return false;
     }
 
 }
