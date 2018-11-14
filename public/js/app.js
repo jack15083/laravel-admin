@@ -3186,30 +3186,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'app',
     mounted: function mounted() {
         this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
         this.isLogin = this.userInfo !== null;
-
         //定位默认菜单
         if (this.isLogin) {
             this.menus = this.userInfo.menus;
-
-            for (var i in this.menus) {
-                var item = this.menus[i];
-                for (var j in item.children) {
-                    var child = item.children[j];
-                    var currentPath = '#' + child.path;
-                    if (currentPath === location.hash) {
-                        this.active = item.id + '-' + child.id;
-                    }
-                }
-            }
         }
     },
     data: function data() {
@@ -3227,10 +3212,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             userInfo: {},
             error: '',
             menus: [],
-            active: ''
+            active: '',
+            hash: location.hash,
+            navBre: []
         };
     },
 
+    watch: {
+        $route: function $route(route) {
+            this.routeChange(route.path);
+        }
+    },
     methods: {
         switchNav: function switchNav() {
             this.isCollapse = !this.isCollapse;
@@ -3244,17 +3236,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.navbarStyle = 'margin-left:230px;';
             }
         },
-        login: function login(formName) {
+        routeChange: function routeChange(path) {
             var _this = this;
+
+            this.$http.post('/api/get/path/info', { path: path }).then(function (res) {
+                if (res.error === 0) {
+                    _this.navBre = res.data;
+                    _this.active = _this.navBre[0].id + '-' + _this.navBre[1].id;
+                }
+            });
+        },
+        login: function login(formName) {
+            var _this2 = this;
 
             this.$refs[formName].validate(function (valid) {
                 if (valid) {
-                    _this.$http.post('/api/login', _this.form).then(function (res) {
+                    _this2.$http.post('/api/login', _this2.form).then(function (res) {
                         if (res.error === 0) {
                             window.sessionStorage.setItem('userInfo', JSON.stringify(res.data));
                             location.reload();
                         } else {
-                            _this.error = res.msg;
+                            _this2.error = res.msg;
                         }
                     });
                 }
@@ -3268,14 +3270,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return Y + M + D;
         },
         logout: function logout() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$http.post('/api/logout', this.form).then(function (res) {
                 if (res.error === 0) {
                     window.sessionStorage.removeItem('userInfo');
                     location.reload();
                 } else {
-                    _this2.error = res.msg;
+                    _this3.error = res.msg;
                 }
             });
         }
@@ -80623,22 +80625,16 @@ var render = function() {
                           _c(
                             "el-breadcrumb",
                             { attrs: { separator: "/" } },
-                            [
-                              _c(
+                            _vm._l(_vm.navBre, function(item) {
+                              return _c(
                                 "el-breadcrumb-item",
-                                { attrs: { to: { path: "/" } } },
-                                [_vm._v("首页")]
-                              ),
-                              _vm._v(" "),
-                              _c("el-breadcrumb-item", [
-                                _c("a", { attrs: { href: "/" } }, [
-                                  _vm._v("系统设置")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("el-breadcrumb-item", [_vm._v("管理组列表")])
-                            ],
-                            1
+                                {
+                                  key: item.id,
+                                  attrs: { to: { path: item.name } }
+                                },
+                                [_vm._v(_vm._s(item.title))]
+                              )
+                            })
                           ),
                           _vm._v(" "),
                           _c("hr", { staticStyle: { color: "#ccc" } }),
@@ -83922,7 +83918,7 @@ var vueRoutes = {
     saveScrollPosition: true,
     routes: [{
         name: 'hello',
-        path: '/hello',
+        path: '/',
         component: function component(resolve) {
             return void __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/Hello.vue")]; ((resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
         }

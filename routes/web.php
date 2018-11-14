@@ -25,6 +25,9 @@ Route::prefix('/api/')->group(function () {
         Route::post('logout', 'loginController@logout');
     });
 
+    route::namespace('System')->group(function () {
+        Route::post('get/path/info', 'RuleController@getPathInfo');
+    });
 
     /**
      * 系统设置

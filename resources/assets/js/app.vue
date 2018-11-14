@@ -79,10 +79,7 @@
                 <el-container>
                     <el-main class="main-content">
                         <el-breadcrumb separator="/">
-                            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                            <el-breadcrumb-item><a href="/">系统设置</a></el-breadcrumb-item>
-                            <el-breadcrumb-item>管理组列表</el-breadcrumb-item>
-
+                            <el-breadcrumb-item :to="{ path: item.name }" v-for="item in navBre" :key="item.id">{{item.title}}</el-breadcrumb-item>
                         </el-breadcrumb>
                         <hr style="color:#ccc;"/>
                         <router-view></router-view>
@@ -122,21 +119,9 @@
         mounted() {
             this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
             this.isLogin = this.userInfo !== null;
-
             //定位默认菜单
             if(this.isLogin) {
                 this.menus = this.userInfo.menus;
-
-                for(let i in this.menus) {
-                    let item = this.menus[i];
-                    for(let j in item.children) {
-                        let child = item.children[j];
-                        let currentPath = '#' + child.path;
-                        if(currentPath === location.hash) {
-                            this.active = item.id + '-' + child.id;
-                        }
-                    }
-                }
             }
         },
         data() {
@@ -158,8 +143,15 @@
                 userInfo:{},
                 error:'',
                 menus:[],
-                active:''
+                active:'',
+                hash:location.hash,
+                navBre:[]
             }
+        },
+        watch: {
+            $route: function (route) {
+                this.routeChange(route.path);
+            },
         },
         methods: {
             switchNav() {
@@ -173,6 +165,14 @@
                     this.logoStyle = 'width:230px';
                     this.navbarStyle = 'margin-left:230px;'
                 }
+            },
+            routeChange(path) {
+                this.$http.post('/api/get/path/info', {path:path}).then(res => {
+                    if(res.error === 0) {
+                        this.navBre = res.data;
+                        this.active = this.navBre[0].id + '-' + this.navBre[1].id;
+                    }
+                });
             },
             login(formName) {
                 this.$refs[formName].validate((valid) => {

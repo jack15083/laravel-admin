@@ -10,5 +10,7 @@ namespace App\Components;
 
 class Gconst
 {
-    const TEST = 'test';
+    const EXPECT_CHECK_PATH = [
+        'api/get/path/info'
+    ];
 }

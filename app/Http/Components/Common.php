@@ -109,7 +109,7 @@ class Common
         if(!$isPreg) $path = preg_replace('/(^\/)|(\/$)/', '', $path);
 
         foreach ($rules as $value) {
-            if(!$isPreg && $path === $value) {
+            if(!$isPreg && ($path === $value || in_array($path, Gconst::EXPECT_CHECK_PATH))) {
                 return true;
             }
 

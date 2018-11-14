@@ -8,7 +8,7 @@ let vueRoutes = {
     routes: [
         {
             name: 'hello',
-            path: '/hello',
+            path: '/',
             component: resolve => void(require(['../components/Hello.vue'], resolve))
         }
     ]
