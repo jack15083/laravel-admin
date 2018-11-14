@@ -69,8 +69,8 @@
 
                         <el-submenu :index="menu.id + ''" v-for="menu in menus" :key="menu.id">
                             <template slot="title">
-                                <span v-html="menu.icon"></span>
-                                <span>{{menu.label}}</span>
+                                <a class="menu-icon" v-html="menu.icon"></a>
+                                <span slot="title">{{menu.label}}</span>
                             </template>
                             <el-menu-item :index="menu.id + '-' + child.id" :route="child.path" v-for="child in menu.children" :key="child.id">{{child.label}}</el-menu-item>
                         </el-submenu>

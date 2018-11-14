@@ -176,16 +176,26 @@ a {
   margin-right: 5px;
 }
 
-.main-container .el-aside, .main-container .el-menu-custom {
+.main-container .el-aside, .main-container .el-menu-custom , .el-menu--vertical, .el-menu--vertical ul, .el-menu--vertical ul li{
   background-color: #222D32;
 }
 
-.main-container .el-submenu__title:hover{
+.main-container .el-submenu__title:hover, .el-menu--vertical ul li:hover{
   background-color: #2c3b41;
 }
 .main-container .el-menu--inline {
   background-color: #222D32;
 }
 .main-container .el-menu-item:hover, .el-menu--inline .is-active, .main-container .el-menu-item:focus {
+  background-color: #2c3b41;
+}
+.el-menu--collapse i {
+  color: #909399;
+}
+.el-menu--vertical {
+  background-color: #222D32;
+}
+
+.el-menu--collapse .el-submenu.is-active .el-submenu__title {
   background-color: #2c3b41;
 }

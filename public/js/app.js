@@ -80579,11 +80579,16 @@ var render = function() {
                             { key: menu.id, attrs: { index: menu.id + "" } },
                             [
                               _c("template", { slot: "title" }, [
-                                _c("span", {
+                                _c("a", {
+                                  staticClass: "menu-icon",
                                   domProps: { innerHTML: _vm._s(menu.icon) }
                                 }),
                                 _vm._v(" "),
-                                _c("span", [_vm._v(_vm._s(menu.label))])
+                                _c(
+                                  "span",
+                                  { attrs: { slot: "title" }, slot: "title" },
+                                  [_vm._v(_vm._s(menu.label))]
+                                )
                               ]),
                               _vm._v(" "),
                               _vm._l(menu.children, function(child) {
