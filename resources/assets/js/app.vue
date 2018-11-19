@@ -150,6 +150,9 @@
         },
         watch: {
             $route: function (route) {
+                if(!this.isLogin) {
+                    return;
+                }
                 this.routeChange(route.path);
             },
         },

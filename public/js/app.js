@@ -3220,6 +3220,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     watch: {
         $route: function $route(route) {
+            if (!this.isLogin) {
+                return;
+            }
             this.routeChange(route.path);
         }
     },
