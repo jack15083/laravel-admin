@@ -54,6 +54,7 @@
                 <el-row style="padding-top: 10px;">
                     <el-tree
                             :data="rulesTree"
+                            :default-expanded-keys = "expandKeys"
                             node-key="id"
                             ref="tree"
                             highlight-current
@@ -121,7 +122,8 @@
                     remark:[],
                     icon:[],
                     pid:[]
-                }
+                },
+                expandKeys:[]
             }
         },
         methods:{
@@ -184,6 +186,10 @@
             getRulesTree() {
                 this.$http.get('/api/system/rule/list',{}).then(res => {
                     this.rulesTree = res.data.list;
+                    this.rulesTree.map(row => {
+                        this.expandKeys.push(row.id);
+                        return row;
+                    });
                     this.auth = res.data.auth;
                 });
             },
