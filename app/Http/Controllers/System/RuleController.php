@@ -88,6 +88,10 @@ class RuleController extends AuthController
             }
         }
 
+        if(empty($curRow)) {
+            return $this->sendError(Code::FAIL);
+        }
+
         $data[] = $curRow;
         while (isset($newList[$curRow['pid']])) {
             array_push($data, $newList[$curRow['pid']]);
