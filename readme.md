@@ -7,7 +7,7 @@ Laravel-Admin 是用 laravel + elementUi前端框架前后端分离写成的后�
 
 - 配置nginx 域名指向/public目录 
 - npm run install
-- 导入laravel-admin 数据库
+- 导入/laravel-admin.sql 数据库
 - 将.env.example 重命名为.env后修改数据库配置文件
 - npm run dev
 
