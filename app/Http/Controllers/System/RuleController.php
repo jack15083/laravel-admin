@@ -103,4 +103,13 @@ class RuleController extends AuthController
         return $this->sendJson($data);
     }
 
+    /**
+     * 删除记录
+     */
+    public function delete()
+    {
+        Rule::getInstance()->deleteRow($this->request->input('id'));
+        $this->sendJson();
+    }
+
 }

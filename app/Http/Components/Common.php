@@ -76,7 +76,8 @@ class Common
                     'label'    => $row['title'],
                     'pid'      => $row['pid'],
                     'path'     => $row['name'],
-                    'icon'     => $row['icon']
+                    'icon'     => $row['icon'],
+                    'menu'     => $row['menu']
                 ];
 
                 $children = self::generateRuleTree($list, $row['id']);

@@ -42,6 +42,7 @@ Route::prefix('/api/')->group(function () {
         Route::get('rule/routes', 'RuleController@getAllRoutes');
         Route::post('rule/save', 'RuleController@save');
         Route::get('rule/get', 'RuleController@get');
+        Route::post('rule/delete', 'RuleController@delete');
 
         //用户管理
         Route::get('admin/list', 'AdminController@getList');

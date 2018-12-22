@@ -5,12 +5,14 @@ a {
 
 .main-container {
   position: absolute;
-  top:50px;
+  top:55px;
   left:0;
   right:0;
   bottom: 0;
   overflow-y:auto;
 }
+
+
 .main-content, .main-footer {
   background-color: #fff;
 }
@@ -23,12 +25,12 @@ a {
   vertical-align: middle;
 }
 .main-header {
-  padding:0;
-  background-color: #008749;
-  width:100%
+  background-color: #05c598;
+  width:100%;
+  padding: 0;
+  height:55px;
 }
 .main-header .logo {
-  background-color: #008749;
   color: #fff;
   border-bottom: 0 solid transparent;
 }
@@ -39,9 +41,9 @@ a {
   transition: width .3s ease-in-out;
   display: block;
   float: left;
-  height: 50px;
+  height: 55px;
   font-size: 20px;
-  line-height: 50px;
+  line-height: 55px;
   text-align: center;
   width: 230px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -52,17 +54,13 @@ a {
 }
 
 .main-header .navbar {
-  background-color: #00a65a;
-}
-
-.main-header .navbar {
   -webkit-transition: margin-left .3s ease-in-out;
   -o-transition: margin-left .3s ease-in-out;
   transition: margin-left .3s ease-in-out;
   margin-bottom: 0;
   margin-left: 230px;
   border: none;
-  min-height: 50px;
+  min-height: 55px;
   border-radius: 0;
   display: block;
   position: relative;
@@ -94,14 +92,14 @@ a {
   float: left;
   background-color: transparent;
   background-image: none;
-  padding: 16px 15px;
+  padding: 18px 15px;
   font-family: fontAwesome;
   color:#fff;
   cursor: pointer;
 }
 
 .main-header .sidebar-toggle:hover {
-  background-color: #008749;
+  background-color: #05c5aF;
 }
 
 .main-header .sidebar-toggle:before {
@@ -116,7 +114,7 @@ a {
   color:#fff;
   position: relative;
   display: block;
-  padding: 15px 15px;
+  padding: 18px 15px;
   line-height: 20px;
 }
 
@@ -151,9 +149,6 @@ a {
   text-align: center;
 }
 
-.main-header .el-dropdown:hover {
-  background-color: #009551;
-}
 
 .user-header>img {
   z-index: 5;
@@ -198,4 +193,43 @@ a {
 
 .el-menu--collapse .el-submenu.is-active .el-submenu__title {
   background-color: #2c3b41;
+}
+
+.gaptop-lg {
+  margin-top: 20px;
+}
+
+.menu__catagory_title {
+  color: #35495e;
+  font-size: 26px;
+  height: 46px;
+  line-height: 46px;
+  border-bottom: 3px solid #ddd;
+  & > span {
+    padding: 5px;
+    border-bottom: 3px solid #41b883;
+  }
+}
+
+.link__group {
+}
+.link__group_item {
+  .el-badge {
+    display: block;
+  }
+  .link__group_item_div {
+    padding: 35px 5px;
+    font-size: 20px;
+    border-radius: 3px;
+    text-align: center;
+    // border: 1px solid #ddd;
+    cursor: pointer;
+    background: #eef1f5;
+    color: #000;
+    &:hover {
+      background: #05c598;
+      color: #fff;
+    }
+    display: block;
+  }
 }

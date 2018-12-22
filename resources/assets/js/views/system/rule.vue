@@ -38,6 +38,9 @@
                     <el-form-item label="菜单图标" prop="icon" v-if="saveForm.menu == 1">
                         <el-input v-model="saveForm.icon" style="width: 50%"></el-input>
                     </el-form-item>
+                    <el-form-item label="菜单排序" prop="icon" v-if="saveForm.menu == 1">
+                        <el-input v-model="saveForm.sort" style="width: 50%"></el-input>
+                    </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">新增/保存</el-button>
                         <el-button  @click="resetFields">重置</el-button>
@@ -63,15 +66,15 @@
                             :default-expand-all="false"
                     >
                         <span class="custom-tree-node" slot-scope="{ node, data }">
-                        <span>{{ node.label }}</span>
-                        <span>
-                          <el-button
-                                  type="text"
-                                  size="mini"
-                                  @click="() => editRule(data)" v-if="auth.canEdit">
-                            编辑
-                          </el-button>
-                        </span>
+                            <span>
+                                <span v-if="data.menu"><i class="fa fa-list" ></i></span>
+                                <span v-if="!data.menu"><i class="fa fa-file-code-o"  ></i></span>
+                                <span>{{data.label}}</span>
+                            </span>
+                            <span>
+                                <el-button type="text" size="mini" @click="() => editRule(data)" v-if="auth.canEdit">编辑</el-button>
+                                <el-button type="text" size="mini" @click="() => deleteRule(data)" v-if="auth.canEdit">删除</el-button>
+                            </span>
                       </span>
                     </el-tree>
                 </el-row>
@@ -188,6 +191,9 @@
                     this.rulesTree = res.data.list;
                     this.rulesTree.map(row => {
                         this.expandKeys.push(row.id);
+                        for(let index in row.children) {
+                            this.expandKeys.push(row.children[index].id);
+                        }
                         return row;
                     });
                     this.auth = res.data.auth;
@@ -197,7 +203,7 @@
                 if(typeof(this.$refs['saveForm']) !== 'undefined') this.$refs['saveForm'].resetFields();
                 this.saveForm.id = undefined;
             },
-            editRule(node, data) {
+            editRule(node) {
                 if(typeof(this.$refs['saveForm']) !== 'undefined') this.$refs['saveForm'].resetFields();
 
                 this.$http.get('/api/system/rule/get',{id:node.id}).then(res => {
@@ -206,6 +212,19 @@
                     this.saveForm.menu += '';
                     this.saveForm.pid = this.saveForm.pid ? this.saveForm.pid : undefined;
                 });
+            },
+            deleteRule(node) {
+                this.$confirm('你确定删除这条记录吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.post('/api/system/rule/delete',{id:node.id}).then(res => {
+                        this.getRulesTree();
+                        this.getMenusTree();
+                    });
+                });
+
             }
         }
     }

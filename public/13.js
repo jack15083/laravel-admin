@@ -1,15 +1,10 @@
-webpackJsonp([5],{
+webpackJsonp([13],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/system/admin.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
 //
 //
 //
@@ -395,8 +390,6 @@ var render = function() {
             attrs: { prop: "realname", label: "真实姓名" }
           }),
           _vm._v(" "),
-          _c("el-table-column", { attrs: { prop: "position", label: "职位" } }),
-          _vm._v(" "),
           _c("el-table-column", { attrs: { prop: "mobile", label: "手机号" } }),
           _vm._v(" "),
           _c("el-table-column", { attrs: { prop: "email", label: "邮箱" } }),
@@ -642,25 +635,6 @@ var render = function() {
                         _vm.$set(_vm.saveForm, "email", $$v)
                       },
                       expression: "saveForm.email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-form-item",
-                { attrs: { label: "职位" } },
-                [
-                  _c("el-input", {
-                    staticStyle: { width: "50%" },
-                    attrs: { placeholder: "请输入职位" },
-                    model: {
-                      value: _vm.saveForm.position,
-                      callback: function($$v) {
-                        _vm.$set(_vm.saveForm, "position", $$v)
-                      },
-                      expression: "saveForm.position"
                     }
                   })
                 ],

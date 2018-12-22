@@ -29,11 +29,13 @@ class Rule extends Model
 
     public function getList($condition = [])
     {
-        return $this->where($condition)->orderBy('id', 'asc')->get()->toArray();
+        $condition['deleted'] = 0;
+        return $this->where($condition)->orderBy('sort', 'asc')->get()->toArray();
     }
 
     public function getRows($conditons)
     {
+        $condition['deleted'] = 0;
         return $this->where($conditons)->orderBy('id', 'asc')->get()->toArray();
     }
 
@@ -52,6 +54,13 @@ class Rule extends Model
         $model->save();
     }
 
+    public function deleteRow($id)
+    {
+        $model = $this->find($id);
+        $model->deleted = 1;
+        $model->save();
+    }
+
     /**
      * 获取用户权限
      * @param $adminId
@@ -64,7 +73,10 @@ class Rule extends Model
         $data = [];
         //god组有所有权限
         if(in_array(1, $groupIds)) {
-            $rules = Rule::getInstance()->where('status', 1)->get()->toArray();
+            $rules = Rule::getInstance()->where([
+                'status' => 1,
+                'deleted' => 0
+            ])->get()->toArray();
             foreach ($rules as $rule) {
                 $data[$rule['id']] = $rule['name'];
             }
@@ -76,7 +88,10 @@ class Rule extends Model
 
         foreach ($groups as $row) {
             $ruleIds = explode(',' , $row['rules']);
-            $rules = Rule::getInstance()->where('status', 1)->whereIn('id', $ruleIds)->get()->toArray();
+            $rules = Rule::getInstance()->where([
+                'status' => 1,
+                'deleted' => 0
+            ])->whereIn('id', $ruleIds)->get()->toArray();
             foreach ($rules as $rule) {
                 $data[$rule['id']] = $rule['name'];
             }

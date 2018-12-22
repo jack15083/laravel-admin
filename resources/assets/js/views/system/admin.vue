@@ -16,6 +16,7 @@
             <el-form-item label="邮箱">
                 <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
             </el-form-item>
+
             <el-form-item>
                 <el-button type="primary" @click="onSearch">查询</el-button>
             </el-form-item>
@@ -28,6 +29,7 @@
             <el-table-column prop="id" label="ID" width="80"></el-table-column>
             <el-table-column prop="username" label="用户名" ></el-table-column>
             <el-table-column prop="realname" label="真实姓名"></el-table-column>
+            <el-table-column prop="position" label="职位"></el-table-column>
             <el-table-column prop="mobile" label="手机号"></el-table-column>
             <el-table-column prop="email" label="邮箱"></el-table-column>
             <el-table-column
@@ -96,6 +98,9 @@
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
                     <el-input v-model="saveForm.email" style="width: 50%"></el-input>
+                </el-form-item>
+                <el-form-item label="职位">
+                    <el-input v-model="saveForm.position" style="width: 50%" placeholder="请输入职位"></el-input>
                 </el-form-item>
                 <el-form-item label="状态" prop="status" >
                     <el-switch v-model="saveForm.status" active-text="正常" inactive-text="禁用"></el-switch>
