@@ -21,7 +21,7 @@ npm run prod 生产环境打包
 
 ## 最新更新预览
 ![image](https://upload-images.jianshu.io/upload_images/5993750-4ad3fab271b72a69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
-![image](https://upload-images.jianshu.io/upload_images/5993750-5fc95a977325bd63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![image](https://upload-images.jianshu.io/upload_images/5993750-5fc95a977325bd63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## 预览
