@@ -12,6 +12,13 @@ let rm = require('rimraf');
  |
  */
 
+const buildRoot = 'public/js';
+
+rm(buildRoot, err => {
+    if (err) throw err
+    console.log("清空编译文件夹\n\n")
+});
+
 mix.js('resources/assets/js/app.js', 'public/js').extract(['vue'])
    .sass('resources/assets/sass/app.scss', 'public/css');
 
@@ -28,11 +35,4 @@ if(mix.inProduction()) {
             chunkFilename: 'js/[id].js'
         }
     });
-}
-
-
-if(!mix.config.production) {
-    /*mix.browserSync({
-        proxy: 'local.admin.com'
-    });*/
 }
