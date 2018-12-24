@@ -44,6 +44,7 @@
 
                                             <p>
                                                 {{userInfo.username}} - {{userInfo.realname}}<br/>
+                                                {{userInfo.position}}<br/>
                                                 <small>Member since {{toDate(userInfo.create_time)}}</small>
                                             </p>
                                         </el-dropdown-item>
@@ -157,10 +158,11 @@
                     }
                 }
             }
+            this.initPage();
         },
         data() {
             return {
-                isCollapse:false,
+                isCollapse:sessionStorage.getItem('isCollapse') === '1',
                 asideWidth:'230px',
                 logoStyle:'',
                 navbarStyle:'',
@@ -197,6 +199,10 @@
         methods: {
             switchNav() {
                 this.isCollapse = !this.isCollapse;
+                sessionStorage.setItem('isCollapse', Number(this.isCollapse));
+                this.initPage();
+            },
+            initPage(){
                 if(this.isCollapse) {
                     this.asideWidth = '64px';
                     //this.logoStyle = 'width:64px';
