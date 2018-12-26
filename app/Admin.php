@@ -32,7 +32,7 @@ class Admin extends Model
         if(!self::$instance) {
             self::$instance = new self();
         }
-
+        
         return self::$instance;
     }
 
@@ -43,7 +43,7 @@ class Admin extends Model
                 unset($condition[$key]);
             }
         }
-
+     
         $data = $this->where($condition)
             ->orderBy('create_time', 'desc')
             ->paginate($pageSize)

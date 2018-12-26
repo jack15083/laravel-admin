@@ -8,7 +8,7 @@
                     <!--<span class="logo-mini" v-if="isCollapse"><b>LA</b></span>-->
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg"><b>Laravel</b>-Admin</span>
-
+                    
                 </a>
 
                 <!-- Header Navbar: style can be found in header.less -->
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </el-main>
-                    <el-footer class="main-footer" style="padding:15px"><strong>Copyright © 2018 <a href="http://xxx">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
+                    <el-footer class="main-footer" style="padding:15px;height: 50px"><strong>Copyright © 2018 <a href="https://github.com/jack15083/laravel-admin">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
                 </el-container>
             </el-container>
         </el-container>

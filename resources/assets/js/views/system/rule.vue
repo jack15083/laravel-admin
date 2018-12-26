@@ -35,8 +35,11 @@
                     <el-form-item label="备注" prop="remark">
                         <el-input v-model="saveForm.remark" style="width: 50%"></el-input>
                     </el-form-item>
-                    <el-form-item label="菜单图标" prop="icon" v-if="saveForm.menu == 1">
-                        <el-input v-model="saveForm.icon" style="width: 50%"></el-input>
+                    <el-form-item label="菜单图标" prop="icon" v-if="saveForm.menu == 1" >
+                        <el-input v-model="saveForm.icon" style="width: 50%" placeholder="请输入i标签html代码"></el-input>
+                        <div class="el-form-item__info">
+                            图标详情请查看 <a href="http://fontawesome.dashgame.com">Font Awesome</a>
+                        </div>
                     </el-form-item>
                     <el-form-item label="菜单排序" prop="icon" v-if="saveForm.menu == 1">
                         <el-input v-model="saveForm.sort" style="width: 50%"></el-input>
@@ -75,7 +78,7 @@
                                 <el-button type="text" size="mini" @click="() => editRule(data)" v-if="auth.canEdit">编辑</el-button>
                                 <el-button type="text" size="mini" @click="() => deleteRule(data)" v-if="auth.canEdit">删除</el-button>
                             </span>
-                      </span>
+                        </span>
                     </el-tree>
                 </el-row>
 

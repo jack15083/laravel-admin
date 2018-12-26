@@ -69,6 +69,13 @@
                         :default-checked-keys="saveForm.rules"
                         :check-strictly="true"
                         >
+                        <span class="custom-tree-node" slot-scope="{ node, data }">
+                            <span>
+                                <span v-if="data.menu"><i class="fa fa-list" ></i></span>
+                                <span v-if="!data.menu"><i class="fa fa-file-code-o"  ></i></span>
+                                <span>{{data.label}}</span>
+                            </span>
+                        </span>
                     </el-tree>
                 </el-form-item>
 

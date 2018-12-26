@@ -23,7 +23,7 @@ class Group extends Model
         if(!self::$instance) {
             self::$instance = new Group();
         }
-
+        
         return self::$instance;
     }
 
