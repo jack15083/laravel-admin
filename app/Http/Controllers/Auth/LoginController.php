@@ -41,7 +41,7 @@ class LoginController extends Controller
 
         $checkPass = $adminModel->checkPassword($userInfo['id'], $this->request->input('password'));
 
-        if(empty($checkPass)) {
+        if(!$checkPass) {
             $adminModel->saveData([
                 'id' => $userInfo['id'],
                 'try_time' => $userInfo['try_time'] + 1
