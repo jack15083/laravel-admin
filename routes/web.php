@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('index');
 });
 
+route::namespace('Auth')->group(function () {
+    Route::get('login/ddlogin', 'GroupController@getList');
+});
+
+
+
 //api
 Route::prefix('/api/')->group(function () {
 
