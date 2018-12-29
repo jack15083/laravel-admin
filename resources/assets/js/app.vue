@@ -7,8 +7,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <!--<span class="logo-mini" v-if="isCollapse"><b>LA</b></span>-->
                     <!-- logo for regular state and mobile devices -->
-                    <!--<span class="logo-lg"><b>Laravel</b>-Admin</span>-->
-                    <span class="logo-lg"><b>开课啦运营后台</b></span>
+                    <span class="logo-lg"><b>Laravel</b>-Admin</span>
                 </a>
 
                 <!-- Header Navbar: style can be found in header.less -->
@@ -126,10 +125,10 @@
         <div v-if="!isLogin" class="login-panel">
             <div  style="text-align: center!important;margin-top: 36px">
                 <div class="company-name-text">
-                    <i class="fa fa-bookmark white"></i>
-                    <span class="white" id="id-text2">KAIKE.LA<br>Office Automation System</span>
+                    <i class="fa fa-bookmark "></i>
+                    <span id="id-text2">Laravel.Admin<br>Office Automation System</span>
                 </div>
-                <div class="white" id="id-company-text" >© 铭师堂</div>
+                <div id="id-company-text" >© Company Name</div>
             </div>
             <el-row class="login-form" v-if="!this.isDDLogin">
                 <el-alert
@@ -183,7 +182,7 @@
 </template>
 
 <script>
-    const g_dd_appid = 'dingoamx6u18gw3pthjsbi';
+    const g_dd_appid = 'dingding_appid';
     const g_redirect_uri = 'https://' + document.domain + '/login/ddlogin';
     export default {
         name: 'app',
@@ -266,14 +265,14 @@
                     this.asideWidth = '230px';
                 }
                 if(!this.isLogin) {
-                    document.body.style.background = '#394557 url(/img/meteorshower2.jpg) repeat';
+                    //document.body.style.background = '';
                     if (typeof window.addEventListener != 'undefined') {
                         window.addEventListener('message', this.handleMessage, false);
                     } else if (typeof window.attachEvent != 'undefined') {
                         window.attachEvent('onmessage', this.handleMessage);
                     }
                 } else {
-                    document.body.style.background = '';
+                    //document.body.style.background = '';
                     let themeColor = localStorage.getItem('t_c');
                     if(themeColor) {
                         this.defaultThemeColor = themeColor;

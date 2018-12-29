@@ -36591,9 +36591,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
-var g_dd_appid = 'dingoamx6u18gw3pthjsbi';
+var g_dd_appid = 'dingding_appid';
 var g_redirect_uri = 'https://' + document.domain + '/login/ddlogin';
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'app',
@@ -36664,14 +36663,14 @@ var g_redirect_uri = 'https://' + document.domain + '/login/ddlogin';
                 this.asideWidth = '230px';
             }
             if (!this.isLogin) {
-                document.body.style.background = '#394557 url(/img/meteorshower2.jpg) repeat';
+                //document.body.style.background = '';
                 if (typeof window.addEventListener != 'undefined') {
                     window.addEventListener('message', this.handleMessage, false);
                 } else if (typeof window.attachEvent != 'undefined') {
                     window.attachEvent('onmessage', this.handleMessage);
                 }
             } else {
-                document.body.style.background = '';
+                //document.body.style.background = '';
                 var themeColor = localStorage.getItem('t_c');
                 if (themeColor) {
                     this.defaultThemeColor = themeColor;
@@ -36842,7 +36841,8 @@ var render = function() {
                     },
                     [
                       _c("span", { staticClass: "logo-lg" }, [
-                        _c("b", [_vm._v("开课啦运营后台")])
+                        _c("b", [_vm._v("Laravel")]),
+                        _vm._v("-Admin")
                       ])
                     ]
                   ),
@@ -37538,17 +37538,17 @@ var staticRenderFns = [
       },
       [
         _c("div", { staticClass: "company-name-text" }, [
-          _c("i", { staticClass: "fa fa-bookmark white" }),
+          _c("i", { staticClass: "fa fa-bookmark " }),
           _vm._v(" "),
-          _c("span", { staticClass: "white", attrs: { id: "id-text2" } }, [
-            _vm._v("KAIKE.LA"),
+          _c("span", { attrs: { id: "id-text2" } }, [
+            _vm._v("Laravel.Admin"),
             _c("br"),
             _vm._v("Office Automation System")
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "white", attrs: { id: "id-company-text" } }, [
-          _vm._v("© 铭师堂")
+        _c("div", { attrs: { id: "id-company-text" } }, [
+          _vm._v("© Company Name")
         ])
       ]
     )
