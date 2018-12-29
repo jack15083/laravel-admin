@@ -36364,7 +36364,7 @@ exports = module.exports = __webpack_require__(49)(false);
 
 
 // module
-exports.push([module.i, "\nbody {\n    background-color: #F1F1F1;\n}\n.login-form {\n    background-color: #FFF;\n    width: 350px;\n    margin-left: auto;\n    margin-right: auto;\n    padding: 30px;\n    margin-top: 100px;\n}\n.top-header-nav {\n    height: 55px;\n}\n.top-header-nav .el-menu-item {\n    height: 55px;\n    line-height:55px;\n    font-size: 16px;\n    font-weight: 700;\n}\n", ""]);
+exports.push([module.i, "\nbody {\n    background-color: #F1F1F1;\n}\n.login-form {\n    background-color: #f9f9f9;\n    width: 350px;\n    margin-left: auto;\n    margin-right: auto;\n    padding: 30px;\n    margin-top: 10px;\n    -webkit-box-shadow: #1b1919 0px 0px 50px;\n            box-shadow: #1b1919 0px 0px 50px\n}\n.top-header-nav {\n    height: 55px;\n}\n.top-header-nav .el-menu-item {\n    height: 55px;\n    line-height:55px;\n    font-size: 16px;\n    font-weight: 700;\n}\n#dd_login {\n    display: none;\n    padding: 0;\n    width: 350px;\n}\n.theme-block {\n    line-height: 40px;text-align: center;color:white;cursor:pointer\n}\n.theme__group .el-col {\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -36552,7 +36552,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var g_dd_appid = 'dingding_appid';
+var g_redirect_uri = 'https://' + document.domain + '/login/ddlogin';
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'app',
     mounted: function mounted() {
@@ -36590,7 +36631,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             hash: location.hash,
             navBre: [],
             defaultTopIndex: '1',
-            isLanding: false
+            isLanding: false,
+            isDDLogin: false,
+            intervalId: '',
+            showThemeModal: false,
+            defaultThemeColor: '#0050b3',
+            defaultLeftColor: '#222D32',
+            themeColor: ['#8c8c8c', '#d46b08', '#7cb305', '#389e0d', '#08979c', '#0050b3', '#531dab', '#c41d7f']
         };
     },
 
@@ -36612,12 +36659,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initPage: function initPage() {
             if (this.isCollapse) {
                 this.asideWidth = '64px';
-                //this.logoStyle = 'width:64px';
-                //this.navbarStyle = 'margin-left:64px;'
             } else {
                 this.asideWidth = '230px';
-                //this.logoStyle = 'width:230px';
-                //this.navbarStyle = 'margin-left:230px;'
+            }
+            if (!this.isLogin) {
+                //document.body.style.background = '';
+                if (typeof window.addEventListener != 'undefined') {
+                    window.addEventListener('message', this.handleMessage, false);
+                } else if (typeof window.attachEvent != 'undefined') {
+                    window.attachEvent('onmessage', this.handleMessage);
+                }
+            } else {
+                //document.body.style.background = '';
+                var themeColor = localStorage.getItem('t_c');
+                if (themeColor) {
+                    this.defaultThemeColor = themeColor;
+                }
             }
         },
         routeChange: function routeChange(path) {
@@ -36685,6 +36742,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         toRoute: function toRoute(path) {
             this.$router.push(path);
             this.isLanding = false;
+        },
+        ddLogin: function ddLogin(a) {
+            var e,
+                c = document.createElement("iframe"),
+                d = "https://login.dingtalk.com/login/qrcode.htm?goto=" + a.goto;
+            d += a.style ? "&style=" + encodeURIComponent(a.style) : "", d += a.href ? "&href=" + a.href : "", c.src = d, c.frameBorder = "0", c.allowTransparency = "true", c.scrolling = "no", c.width = a.width ? a.width + 'px' : "365px", c.height = a.height ? a.height + 'px' : "400px", e = document.getElementById(a.id), e.innerHTML = "", e.appendChild(c);
+        },
+        initDDLogin: function initDDLogin() {
+            var ddGotoUrl = 'https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=' + g_dd_appid + '&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=' + g_redirect_uri;
+            var params = {
+                id: "dd_login",
+                goto: encodeURIComponent(ddGotoUrl),
+                width: "350",
+                height: "320"
+            };
+            if (this.isDDLogin) {
+                document.getElementById(params.id).style.display = 'block';
+                this.ddLogin(params);
+            } else {
+                document.getElementById(params.id).style.display = 'none';
+            }
+        },
+        handleMessage: function handleMessage(event) {
+            var origin = event.origin;
+            if (origin === "https://login.dingtalk.com") {
+                //判断是否来自ddLogin扫码事件。
+                var loginTmpCode = event.data; //拿到loginTmpCode后就可以在这里构造跳转链接进行跳转了
+                var gotoUrl = 'https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=' + g_dd_appid + '&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=' + g_redirect_uri + '&loginTmpCode=' + loginTmpCode;
+                var iframe = document.getElementById('dd_login_iframe');
+                iframe.src = gotoUrl;
+            }
+        },
+        switchLogin: function switchLogin() {
+            this.isDDLogin = !this.isDDLogin;
+            this.initDDLogin();
+            if (this.isDDLogin) {
+                var that = this;
+                this.intervalId = setInterval(function () {
+                    that.getDDLoginData();
+                }, 50);
+            } else {
+                clearInterval(this.intervalId);
+            }
+        },
+        getDDLoginData: function getDDLoginData() {
+            try {
+                var data = document.getElementById('dd_login_iframe').document.body.innerHTML;
+                var res = JSON.parse(data);
+                if (res.error === 0) {
+                    window.sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+                    location.reload();
+                } else {
+                    this.error = res.msg;
+                }
+            } catch (e) {}
+        },
+        saveThemeColor: function saveThemeColor() {
+            localStorage.setItem('t_c', this.defaultThemeColor);
+            this.showThemeModal = false;
+        },
+        setTheme: function setTheme(color) {
+            this.defaultThemeColor = color;
         }
     }
 });
@@ -36708,7 +36827,9 @@ var render = function() {
                 "el-header",
                 {
                   staticClass: "main-header",
-                  staticStyle: { height: "55px", padding: "0" }
+                  style:
+                    "height: 55px;padding:0;background-color:" +
+                    _vm.defaultThemeColor
                 },
                 [
                   _c(
@@ -36720,7 +36841,8 @@ var render = function() {
                     },
                     [
                       _c("span", { staticClass: "logo-lg" }, [
-                        _c("b", [_vm._v("开课啦运营后台")])
+                        _c("b", [_vm._v("Laravel")]),
+                        _vm._v("-Admin")
                       ])
                     ]
                   ),
@@ -36768,7 +36890,8 @@ var render = function() {
                                       attrs: {
                                         "default-active": _vm.defaultTopIndex,
                                         mode: "horizontal",
-                                        "background-color": "#05c598",
+                                        "background-color":
+                                          _vm.defaultThemeColor,
                                         height: 55,
                                         "text-color": "#fff",
                                         "active-text-color": "#ffd04b"
@@ -36794,6 +36917,24 @@ var render = function() {
                                 "el-row",
                                 { staticStyle: { float: "right" } },
                                 [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticStyle: {
+                                        float: "left",
+                                        "line-height": "55px",
+                                        color: "#FFF",
+                                        cursor: "pointer"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showThemeModal = true
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("更改主题色    |")]
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "el-dropdown",
                                     {
@@ -36974,7 +37115,10 @@ var render = function() {
                 [
                   _c(
                     "el-aside",
-                    { attrs: { width: _vm.asideWidth } },
+                    {
+                      style: "background-color:" + _vm.defaultLeftColor,
+                      attrs: { width: _vm.asideWidth }
+                    },
                     [
                       _c(
                         "el-menu",
@@ -36986,7 +37130,8 @@ var render = function() {
                             collapse: _vm.isCollapse,
                             router: true,
                             "text-color": "#fff",
-                            "active-text-color": "#ffd04b"
+                            "active-text-color": "#ffd04b",
+                            "background-color": _vm.defaultLeftColor
                           }
                         },
                         _vm._l(_vm.leftMenus, function(menu) {
@@ -37113,6 +37258,9 @@ var render = function() {
                                                 {
                                                   staticClass:
                                                     "link__group_item_div",
+                                                  staticStyle: {
+                                                    hover: "#000"
+                                                  },
                                                   on: {
                                                     click: function($event) {
                                                       _vm.toRoute(link.path)
@@ -37138,14 +37286,21 @@ var render = function() {
                         "el-footer",
                         {
                           staticClass: "main-footer",
-                          staticStyle: { padding: "15px" }
+                          staticStyle: { padding: "15px", height: "50px" }
                         },
                         [
                           _c("strong", [
-                            _vm._v("Copyright © 2018 "),
-                            _c("a", { attrs: { href: "http://xxx" } }, [
-                              _vm._v("Laravel-Admin")
-                            ]),
+                            _vm._v("Copyright © 2018\n                    "),
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href:
+                                    "https://github.com/jack15083/laravel-admin"
+                                }
+                              },
+                              [_vm._v("Laravel-Admin")]
+                            ),
                             _vm._v(".")
                           ]),
                           _vm._v("  All rights reserved.")
@@ -37164,85 +37319,91 @@ var render = function() {
       _vm._v(" "),
       !_vm.isLogin
         ? _c(
-            "el-container",
+            "div",
             { staticClass: "login-panel" },
             [
-              _c(
-                "el-row",
-                { staticClass: "login-form" },
-                [
-                  _vm.error
-                    ? _c("el-alert", {
-                        attrs: { title: _vm.error, type: "error" }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "el-form",
-                    {
-                      ref: "form",
-                      attrs: {
-                        "label-position": "top",
-                        "label-width": "80px",
-                        model: _vm.form,
-                        rules: _vm.ruleForm
-                      }
-                    },
+              _vm._m(0),
+              _vm._v(" "),
+              !this.isDDLogin
+                ? _c(
+                    "el-row",
+                    { staticClass: "login-form" },
                     [
-                      _c(
-                        "el-form-item",
-                        { attrs: { label: "用户名", prop: "username" } },
-                        [
-                          _c("el-input", {
-                            attrs: { autocomplete: "on", name: "username" },
-                            model: {
-                              value: _vm.form.username,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "username", $$v)
-                              },
-                              expression: "form.username"
-                            }
+                      _vm.error
+                        ? _c("el-alert", {
+                            attrs: { title: _vm.error, type: "error" }
                           })
-                        ],
-                        1
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
-                        "el-form-item",
-                        { attrs: { label: "密码", prop: "password" } },
-                        [
-                          _c("el-input", {
-                            attrs: {
-                              type: "password",
-                              autocomplete: "on",
-                              name: "password"
-                            },
-                            model: {
-                              value: _vm.form.password,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "password", $$v)
-                              },
-                              expression: "form.password"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-form-item",
+                        "el-form",
+                        {
+                          ref: "form",
+                          attrs: {
+                            "label-position": "top",
+                            "label-width": "80px",
+                            model: _vm.form,
+                            rules: _vm.ruleForm
+                          }
+                        },
                         [
                           _c(
-                            "el-button",
-                            {
-                              attrs: { type: "primary", size: "samll" },
-                              on: {
-                                click: function($event) {
-                                  _vm.login("form")
+                            "el-form-item",
+                            { attrs: { label: "用户名", prop: "username" } },
+                            [
+                              _c("el-input", {
+                                attrs: { autocomplete: "on", name: "username" },
+                                model: {
+                                  value: _vm.form.username,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "username", $$v)
+                                  },
+                                  expression: "form.username"
                                 }
-                              }
-                            },
-                            [_vm._v("登录")]
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            { attrs: { label: "密码", prop: "password" } },
+                            [
+                              _c("el-input", {
+                                attrs: {
+                                  type: "password",
+                                  autocomplete: "on",
+                                  name: "password"
+                                },
+                                model: {
+                                  value: _vm.form.password,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "password", $$v)
+                                  },
+                                  expression: "form.password"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            [
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { type: "primary", size: "samll" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.login("form")
+                                    }
+                                  }
+                                },
+                                [_vm._v("登录")]
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
@@ -37250,18 +37411,149 @@ var render = function() {
                     ],
                     1
                   )
-                ],
-                1
+                : _vm._e(),
+              _vm._v(" "),
+              _c("el-row", {
+                staticClass: "login-form",
+                attrs: { id: "dd_login" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "switch-login-text",
+                  on: { click: _vm.switchLogin }
+                },
+                [
+                  !this.isDDLogin
+                    ? _c("span", [_vm._v("切换至钉钉登录")])
+                    : _c("span", [_vm._v("切换至账号密码登录")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("iframe", {
+                staticStyle: { display: "none" },
+                attrs: { id: "dd_login_iframe", src: "" }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            title: "设置主题颜色",
+            visible: _vm.showThemeModal,
+            width: "30%"
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.showThemeModal = $event
+            }
+          }
+        },
+        [
+          _c(
+            "el-row",
+            { staticClass: "theme__group", attrs: { gutter: 30 } },
+            _vm._l(_vm.themeColor, function(color, index) {
+              return _c(
+                "el-col",
+                { key: index, attrs: { xs: 12, sm: 12, md: 6, lg: 6 } },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "theme-block",
+                      style: "background-color:" + color,
+                      on: {
+                        click: function($event) {
+                          _vm.setTheme(color)
+                        }
+                      }
+                    },
+                    [
+                      color === _vm.defaultThemeColor
+                        ? _c("i", {
+                            staticClass: "fa fa-check",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        : _c("span", [_vm._v(" ")])
+                    ]
+                  )
+                ]
+              )
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "dialog-footer",
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.showThemeModal = false
+                    }
+                  }
+                },
+                [_vm._v("取 消")]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary" },
+                  on: { click: _vm.saveThemeColor }
+                },
+                [_vm._v("保 存")]
               )
             ],
             1
           )
-        : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: { "text-align": "center!important", "margin-top": "36px" }
+      },
+      [
+        _c("div", { staticClass: "company-name-text" }, [
+          _c("i", { staticClass: "fa fa-bookmark " }),
+          _vm._v(" "),
+          _c("span", { attrs: { id: "id-text2" } }, [
+            _vm._v("Laravel.Admin"),
+            _c("br"),
+            _vm._v("Office Automation System")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "id-company-text" } }, [
+          _vm._v("© Company Name")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

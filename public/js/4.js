@@ -140,6 +140,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -465,7 +472,39 @@ var render = function() {
                       "highlight-current": "",
                       "default-checked-keys": _vm.saveForm.rules,
                       "check-strictly": true
-                    }
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var node = ref.node
+                          var data = ref.data
+                          return _c(
+                            "span",
+                            { staticClass: "custom-tree-node" },
+                            [
+                              _c("span", [
+                                data.menu
+                                  ? _c("span", [
+                                      _c("i", { staticClass: "fa fa-list" })
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                !data.menu
+                                  ? _c("span", [
+                                      _c("i", {
+                                        staticClass: "fa fa-file-code-o"
+                                      })
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("span", [_vm._v(_vm._s(data.label))])
+                              ])
+                            ]
+                          )
+                        }
+                      }
+                    ])
                   })
                 ],
                 1

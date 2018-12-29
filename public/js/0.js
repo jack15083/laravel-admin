@@ -351,6 +351,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 // import the styles
@@ -5553,6 +5556,7 @@ var render = function() {
                         [
                           _c("el-input", {
                             staticStyle: { width: "50%" },
+                            attrs: { placeholder: "请输入i标签html代码" },
                             model: {
                               value: _vm.saveForm.icon,
                               callback: function($$v) {
@@ -5560,7 +5564,20 @@ var render = function() {
                               },
                               expression: "saveForm.icon"
                             }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "el-form-item__info" }, [
+                            _vm._v("\n                        图标详情请查看 "),
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "http://fontawesome.dashgame.com"
+                                }
+                              },
+                              [_vm._v("Font Awesome")]
+                            )
+                          ])
                         ],
                         1
                       )

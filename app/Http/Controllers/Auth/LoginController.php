@@ -50,7 +50,14 @@ class LoginController extends Controller
             return $this->sendError(Code::LOGIN_ERROR);
         }
 
-        $adminModel->saveData([
+        $userInfo = $this->loginSuccess($userInfo);
+
+        return $this->sendJson($userInfo);
+    }
+
+    private function loginSuccess($userInfo)
+    {
+        Admin::getInstance()->saveData([
             'id'         => $userInfo['id'],
             'try_time'   => 0,
             'last_login' => microtime(true),
@@ -74,7 +81,37 @@ class LoginController extends Controller
 
         $userInfo['menus'] = Common::generateRuleTree($menus, 0);
 
+        return $userInfo;
+    }
+
+    /**
+     * 钉钉登录
+     * @return $this|\Illuminate\Http\JsonResponse
+     */
+    public function ddlogin()
+    {
+        $code = $this->request->input('code');
+        if(empty($code)) {
+            return $this->sendError(Code::FAIL);
+        }
+
+        $accessToken = $this->getAccessToken();
+
+        //todo 获取用户信息
+        $userInfo = []; //todo 获取钉钉用户信息
+
+        $this->loginSuccess($userInfo);
+
         return $this->sendJson($userInfo);
+    }
+
+    /**
+     * 钉钉accessToken
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        //todo
     }
 
     /**
