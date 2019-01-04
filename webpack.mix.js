@@ -13,6 +13,7 @@ let rm = require('rimraf');
  */
 
 const buildRoot = 'public/build';
+const devSeverHost = 'local.admin.com';
 
 rm(buildRoot, err => {
     if (err) throw err
@@ -35,4 +36,10 @@ if(mix.inProduction()) {
             chunkFilename: 'build/[id].js'
         }
     });
+    mix.browserSync(
+        {
+            proxy: devSeverHost,
+            files: ['resources/**/*']
+        }
+    );
 }
