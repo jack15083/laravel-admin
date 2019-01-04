@@ -26,7 +26,7 @@ a {
 }
 
 .main-header {
-  background-color: #05c598;
+  background-color: #0050b3;
   width: 100%;
   padding: 0;
   height: 55px;
@@ -96,10 +96,6 @@ a {
   font-family: fontAwesome;
   color: #fff;
   cursor: pointer;
-}
-
-.main-header .sidebar-toggle:hover {
-  background-color: #05c5aF;
 }
 
 .main-header .sidebar-toggle:before {
@@ -172,56 +168,8 @@ a {
   margin-right: 5px;
 }
 
-.main-container .el-aside,
-.main-container .el-menu-custom,
-.el-menu--vertical,
-.el-menu--vertical ul,
-.el-menu--vertical ul li {
-  background-color: #222D32;
-}
-
-.main-container .el-submenu__title:hover,
-.el-menu--vertical ul li:hover {
-  background-color: #2c3b41;
-}
-
-.main-container .el-menu--inline {
-  background-color: #222D32;
-}
-
-.main-container .el-menu-item:hover,
-.el-menu--inline .is-active,
-.main-container .el-menu-item:focus {
-  background-color: #2c3b41;
-}
-
-.el-menu--collapse i {
-  color: #909399;
-}
-
-.el-menu--vertical {
-  background-color: #222D32;
-}
-
-.el-menu--collapse .el-submenu.is-active .el-submenu__title {
-  background-color: #2c3b41;
-}
-
 .gaptop-lg {
   margin-top: 20px;
-}
-
-.menu__catagory_title {
-  color: #35495e;
-  font-size: 26px;
-  height: 46px;
-  line-height: 46px;
-  border-bottom: 3px solid #ddd;
-}
-
-.menu__catagory_title > span {
-  padding: 5px;
-  border-bottom: 3px solid #41b883;
 }
 
 .link__group_item .el-badge {
@@ -240,7 +188,31 @@ a {
 }
 
 .link__group_item .link__group_item_div:hover {
-  background: #05c598;
+  background: #bec1c4;
   color: #fff;
+}
+
+.white {
+  color: #fff;
+}
+
+#id-company-text {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 40px;
+}
+
+.company-name-text {
+  font-size: 32px;
+  font-weight: 400;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.switch-login-text {
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-size: 13px;
 }
 

@@ -12,27 +12,34 @@ let rm = require('rimraf');
  |
  */
 
-const buildRoot = 'public/js';
+const buildRoot = 'public/build';
+const devSeverHost = 'local.admin.com';
 
 rm(buildRoot, err => {
     if (err) throw err
     console.log("清空编译文件夹\n\n")
 });
 
-mix.js('resources/assets/js/app.js', 'public/js').extract(['vue'])
+mix.js('resources/assets/js/app.js', buildRoot).extract(['vue'])
    .sass('resources/assets/sass/app.scss', 'public/css');
 
 if(mix.inProduction()) {
     mix.version();
     mix.webpackConfig({
         output: {
-            chunkFilename: 'js/[id].[hash].js'
+            chunkFilename: 'build/[id].[hash].js'
         }
     });
 } else {
     mix.webpackConfig({
         output: {
-            chunkFilename: 'js/[id].js'
+            chunkFilename: 'build/[id].js'
         }
     });
+    mix.browserSync(
+        {
+            proxy: devSeverHost,
+            files: ['resources/**/*']
+        }
+    );
 }
