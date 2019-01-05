@@ -20,6 +20,10 @@ Laravel-Admin 是用 laravel + elementUi前端框架前后端分离写成的后�
 npm run watch 可在开发时运行，实时兼控前端文件修改
 npm run prod 生产环境打包
 
+## 注意
+
+设置新的权限后需要重新登录才会生效。
+
 ## 最新更新预览
 ![image](https://upload-images.jianshu.io/upload_images/5993750-4ad3fab271b72a69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 ![image](https://upload-images.jianshu.io/upload_images/5993750-5fc95a977325bd63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
