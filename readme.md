@@ -6,7 +6,7 @@ Laravel-Admin 是用 laravel + elementUi前端框架前后端分离写成的后�
 ## 安装
 
 - composer install  
-- 配置nginx 域名 指向/public目录 
+- 配置nginx 本地域名local.admin.com(如需更换域名，需要在webpack.mix.js更换配置域名) 指向/public目录 
 - npm run install
 - 导入/laravel-admin.sql 数据库
 - 将.env.example 重命名为.env后修改数据库配置文件
