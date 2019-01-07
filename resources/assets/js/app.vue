@@ -3,7 +3,7 @@
         <el-container v-if="isLogin">
             <el-header :style="'height: 55px;padding:0;background-color:' + defaultThemeColor" class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo" :style="logoStyle">
+                <a href="/" class="logo" :style="logoStyle">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <!--<span class="logo-mini" v-if="isCollapse"><b>LA</b></span>-->
                     <!-- logo for regular state and mobile devices -->
@@ -454,5 +454,16 @@
     }
     .theme__group .el-col {
         padding: 10px;
+    }
+    .menu__catagory_title {
+        color: #35495e;
+        font-size: 26px;
+        height: 46px;
+        line-height: 46px;
+        border-bottom: 3px solid #ddd;
+    }
+    .menu__catagory_title>span {
+        padding: 5px;
+        border-bottom: 3px solid #41b883;
     }
 </style>
