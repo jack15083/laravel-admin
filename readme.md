@@ -49,4 +49,4 @@ npm run prod 生产环境打包
 
 ## License
 
-This framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT), [反996license](https://github.com/996icu/996.ICU/blob/master/LICENSE_CN).
