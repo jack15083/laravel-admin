@@ -1,8 +1,9 @@
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 ## Laravel-Admin 简介
 
 Laravel-Admin 是用 laravel + elementUi前端框架前后端分离写成的后台脚手架，自带用户组权限系统。
 
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 ## 安装
 
 - composer install  
