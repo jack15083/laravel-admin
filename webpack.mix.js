@@ -36,8 +36,7 @@ if(mix.inProduction()) {
             chunkFilename: 'build/[id].js'
         }
     });
-    mix.browserSync(
-        {
+    mix.browserSync({
             proxy: devSeverHost,
             files: ['resources/**/*']
         }

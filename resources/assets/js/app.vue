@@ -1,6 +1,37 @@
 <template>
     <div>
         <el-container v-if="isLogin">
+            <div class="top-bar">
+                <div class="notice">
+                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                    <a href="">五一劳动节放假通知</a>
+                </div>
+                <div class="change-theme">
+                    <span style="cursor:pointer" @click="showThemeModal=true">更改主题色</span>
+                </div>
+                <img :src="userInfo.avatar || '/img/avatar.jpg'" class="avatar">
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                        {{userInfo.realname ? userInfo.realname : userInfo.username}}
+                        <i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <router-link class="clickedColorPurple"
+                                     :to="{path:'/system/profile', query:{}}">
+                            <el-dropdown-item>
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                                个人设置
+                            </el-dropdown-item>
+                        </router-link>
+                        <a href="#" @click="logout">
+                            <el-dropdown-item>
+                                <i class="fa fa-power-off" aria-hidden="true"></i>
+                                退出登录
+                            </el-dropdown-item>
+                        </a>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
             <el-header :style="'height: 55px;padding:0;background-color:' + defaultThemeColor" class="main-header">
                 <!-- Logo -->
                 <a href="/" class="logo" :style="logoStyle">
@@ -32,38 +63,7 @@
                             </div>
 
                             <el-row style="float: right">
-                                <div style="float:left;line-height:55px;color:#FFF;cursor:pointer" @click="showThemeModal=true">更改主题色&nbsp;&nbsp;&nbsp;&nbsp;|</div>
-                                <!-- Navbar Right Menu -->
-                                <el-dropdown trigger="click" class="user-info-menu" >
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                                        <img :src="userInfo.avatar || '/img/avatar.jpg'" class="user-image" alt="User Image">
-                                        <span class="hidden-xs">{{userInfo.username}}</span>
-                                    </a>
-                                    <el-dropdown-menu slot="dropdown" class="dropdown-menu">
-                                        <el-dropdown-item class="user-header" >
-                                            <img :src="userInfo.avatar || '/img/avatar.jpg'" class="img-circle" alt="User Image">
 
-                                            <p>
-                                                {{userInfo.username}} - {{userInfo.realname}}<br/>
-                                                {{userInfo.position}}<br/>
-                                                <small>Member since {{toDate(userInfo.create_time)}}</small>
-                                            </p>
-                                        </el-dropdown-item>
-
-                                        <el-dropdown-item class="user-footer" :divided="true">
-                                            <div class="pull-left">
-                                                <router-link :to="'/system/profile'" >
-                                                    <el-button type="text" @click="">设置</el-button>
-                                                </router-link>
-
-                                            </div>
-                                            <div class="pull-right">
-                                                <el-button type="text" @click="logout">退出</el-button>
-                                            </div>
-                                        </el-dropdown-item>
-
-                                    </el-dropdown-menu>
-                                </el-dropdown>
                             </el-row>
 
                         </el-col>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </el-main>
-                    <el-footer class="main-footer" style="padding:15px;height: 50px"><strong>Copyright © 2018
+                    <el-footer class="main-footer" style="line-height:30px;height: 30px;font-size: 12px"><strong>Copyright © 2018
                         <a href="https://github.com/jack15083/laravel-admin">Laravel-Admin</a>.</strong>  All rights reserved.</el-footer>
                 </el-container>
             </el-container>
@@ -229,7 +229,7 @@
                 isDDLogin:false,
                 intervalId:'',
                 showThemeModal:false,
-                defaultThemeColor:'#0050b3',
+                defaultThemeColor:'#0475de',
                 defaultLeftColor:'#222D32',
                 themeColor:[
                     '#8c8c8c',
@@ -237,7 +237,7 @@
                     '#7cb305',
                     '#389e0d',
                     '#08979c',
-                    '#0050b3',
+                    '#0475de',
                     '#531dab',
                     '#c41d7f'
                 ]
@@ -422,7 +422,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     body {
         background-color: #F1F1F1;
     }
@@ -466,4 +466,6 @@
         padding: 5px;
         border-bottom: 3px solid #41b883;
     }
+
+
 </style>

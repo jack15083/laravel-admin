@@ -15,7 +15,7 @@
                                 :show-file-list="false"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                            <img v-if="imageUrl" :src="imageUrl" class="upload-avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
 
@@ -202,7 +202,7 @@
         line-height: 178px;
         text-align: center;
     }
-    .avatar {
+    .upload-avatar {
         width: 178px;
         height: 178px;
         display: block;

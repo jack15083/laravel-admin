@@ -5,7 +5,7 @@ a {
 
 .main-container {
   position: absolute;
-  top:55px;
+  top:85px;
   left:0;
   right:0;
   bottom: 0;
@@ -25,7 +25,7 @@ a {
   vertical-align: middle;
 }
 .main-header {
-  background-color: #0050b3;
+  background-color: #0475de;
   width:100%;
   padding: 0;
   height:55px;
@@ -207,4 +207,45 @@ a {
 }
 .switch-login-text {
   text-align: center;line-height:30px;cursor: pointer;font-size: 13px;
+}
+
+.top-bar {
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+  color: #606266;
+  .avatar {
+    width: 25px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .el-dropdown {
+    & > span {
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+  .change-theme {
+    margin-right:20px;
+    span {
+      font-size: 12px;
+      cursor: pointer;
+      color: #606266;
+    }
+  }
+  .notice {
+    left: 10px;
+    position: absolute;
+
+  }
 }
