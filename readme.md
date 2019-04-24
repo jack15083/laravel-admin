@@ -27,6 +27,9 @@ npm run prod 生产环境打包
 
 本项目未经严格测试，可能存在bug，仅供参考学习。
 
+如果感觉此项目帮助了您，请给颗星支持一下。
+
+
 ## 预览
 
 ![QQ截图20190104154750.png](https://upload-images.jianshu.io/upload_images/5993750-efa7105bce3ea3f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
